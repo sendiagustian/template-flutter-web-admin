@@ -3,15 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TypographyTheme {
   final bool isDesktop;
+  final bool isTablet;
 
-  const TypographyTheme(this.isDesktop);
+  const TypographyTheme({this.isDesktop = true, this.isTablet = false});
 
   String get fontPrimary => 'Inter';
   String get fontSecondary => 'Gothic';
 
   TextStyle get displayLarge {
     return TextStyle(
-      fontSize: isDesktop ? 10.sp : 20.sp,
+      fontSize: isDesktop
+          ? 10.sp
+          : isTablet
+              ? 13.sp
+              : 20.sp,
       fontWeight: FontWeight.w300,
       color: Colors.black,
     );
@@ -19,7 +24,11 @@ class TypographyTheme {
 
   TextStyle get displayMedium {
     return TextStyle(
-      fontSize: isDesktop ? 9.sp : 18.sp,
+      fontSize: isDesktop
+          ? 9.sp
+          : isTablet
+              ? 12.sp
+              : 18.sp,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
@@ -27,7 +36,11 @@ class TypographyTheme {
 
   TextStyle get displaySmall {
     return TextStyle(
-      fontSize: isDesktop ? 8.sp : 16.sp,
+      fontSize: isDesktop
+          ? 8.sp
+          : isTablet
+              ? 11.sp
+              : 16.sp,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
@@ -35,7 +48,11 @@ class TypographyTheme {
 
   TextStyle get headlineMedium {
     return TextStyle(
-      fontSize: isDesktop ? 7.5.sp : 15.sp,
+      fontSize: isDesktop
+          ? 7.5.sp
+          : isTablet
+              ? 10.5.sp
+              : 15.sp,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
@@ -43,7 +60,11 @@ class TypographyTheme {
 
   TextStyle get headlineSmall {
     return TextStyle(
-      fontSize: isDesktop ? 7.sp : 14.sp,
+      fontSize: isDesktop
+          ? 7.sp
+          : isTablet
+              ? 10.sp
+              : 14.sp,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
@@ -51,7 +72,11 @@ class TypographyTheme {
 
   TextStyle get titleLarge {
     return TextStyle(
-      fontSize: isDesktop ? 6.sp : 14.sp,
+      fontSize: isDesktop
+          ? 6.sp
+          : isTablet
+              ? 9.sp
+              : 14.sp,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     );
@@ -59,7 +84,11 @@ class TypographyTheme {
 
   TextStyle get titleMedium {
     return TextStyle(
-      fontSize: isDesktop ? 5.5.sp : 13.5.sp,
+      fontSize: isDesktop
+          ? 5.5.sp
+          : isTablet
+              ? 8.5.sp
+              : 13.5.sp,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     );
@@ -67,7 +96,11 @@ class TypographyTheme {
 
   TextStyle get titleSmall {
     return TextStyle(
-      fontSize: isDesktop ? 5.sp : 13.sp,
+      fontSize: isDesktop
+          ? 5.sp
+          : isTablet
+              ? 8.sp
+              : 13.sp,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     );
@@ -75,7 +108,11 @@ class TypographyTheme {
 
   TextStyle get bodyLarge {
     return TextStyle(
-      fontSize: isDesktop ? 4.5.sp : 13.sp,
+      fontSize: isDesktop
+          ? 4.5.sp
+          : isTablet
+              ? 7.5.sp
+              : 13.sp,
       fontWeight: FontWeight.w400,
       color: const Color(0xFF333333),
     );
@@ -83,7 +120,11 @@ class TypographyTheme {
 
   TextStyle get bodyMedium {
     return TextStyle(
-      fontSize: isDesktop ? 4.sp : 12.sp,
+      fontSize: isDesktop
+          ? 4.sp
+          : isTablet
+              ? 7.sp
+              : 12.sp,
       fontWeight: FontWeight.w400,
       color: const Color(0xFF333333),
     );
@@ -91,7 +132,11 @@ class TypographyTheme {
 
   TextStyle get bodySmall {
     return TextStyle(
-      fontSize: isDesktop ? 3.5.sp : 11.sp,
+      fontSize: isDesktop
+          ? 3.5.sp
+          : isTablet
+              ? 6.5.sp
+              : 11.sp,
       fontWeight: FontWeight.w400,
       color: const Color(0xFF333333),
     );
@@ -99,7 +144,11 @@ class TypographyTheme {
 
   TextStyle get labelLarge {
     return TextStyle(
-      fontSize: isDesktop ? 3.2.sp : 10.sp,
+      fontSize: isDesktop
+          ? 3.2.sp
+          : isTablet
+              ? 6.2.sp
+              : 10.sp,
       fontWeight: FontWeight.w500,
       color: const Color(0xFF333333),
     );
@@ -107,7 +156,11 @@ class TypographyTheme {
 
   TextStyle get labelMedium {
     return TextStyle(
-      fontSize: isDesktop ? 3.sp : 9.sp,
+      fontSize: isDesktop
+          ? 3.sp
+          : isTablet
+              ? 6.sp
+              : 9.sp,
       fontWeight: FontWeight.w400,
       color: const Color(0xFF333333),
     );
@@ -115,7 +168,11 @@ class TypographyTheme {
 
   TextStyle get labelSmall {
     return TextStyle(
-      fontSize: isDesktop ? 2.5.sp : 8.sp,
+      fontSize: isDesktop
+          ? 2.5.sp
+          : isTablet
+              ? 5.5.sp
+              : 8.sp,
       fontWeight: FontWeight.w400,
       color: const Color(0xFF333333),
     );

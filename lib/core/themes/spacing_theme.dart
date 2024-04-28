@@ -1,61 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SpacingTheme {
-  const SpacingTheme();
+  SpacingTheme();
 
-  EdgeInsetsGeometry get space16 => const EdgeInsets.all(16.0);
-  EdgeInsetsGeometry get space24 => const EdgeInsets.all(24.0);
-  EdgeInsetsGeometry get space32 => const EdgeInsets.all(32.0);
+  double get doubleX4 => 4.w;
+  double get doubleX8 => 8.w;
+  double get doubleX12 => 12.w;
+  double get doubleX16 => 16.w;
+  double get doubleX24 => 24.w;
 
-  EdgeInsetsGeometry get spaceX16 {
-    return const EdgeInsets.symmetric(
-      horizontal: 16.0,
-    );
+  double get doubleY4 => 4.h;
+  double get doubleY8 => 8.h;
+  double get doubleY12 => 12.h;
+  double get doubleY16 => 16.h;
+  double get doubleY24 => 24.h;
+
+  SizedBox customX(double value) => SizedBox(width: value.w);
+  SizedBox customY(double value) => SizedBox(height: value.h);
+
+  SizedBox get smallX => SizedBox(width: 4.w);
+  SizedBox get mediumX => SizedBox(width: 6.w);
+  SizedBox get largeX => SizedBox(width: 8.w);
+
+  SizedBox get smallY => SizedBox(height: 4.h);
+  SizedBox get mediumY => SizedBox(height: 6.h);
+  SizedBox get largeY => SizedBox(height: 8.h);
+
+  EdgeInsetsGeometry get pm16 => EdgeInsets.all(16.r);
+  EdgeInsetsGeometry get pm24 => EdgeInsets.all(24.r);
+  EdgeInsetsGeometry get pm32 => EdgeInsets.all(32.r);
+
+  EdgeInsetsGeometry get pmX16 {
+    return EdgeInsets.symmetric(horizontal: 16.r);
   }
 
-  EdgeInsetsGeometry get spaceX24 {
-    return const EdgeInsets.symmetric(
-      horizontal: 24.0,
-    );
+  EdgeInsetsGeometry get pmX24 {
+    return EdgeInsets.symmetric(horizontal: 24.r);
   }
 
-  EdgeInsetsGeometry get spaceX32 {
-    return const EdgeInsets.symmetric(
-      horizontal: 32.0,
-    );
+  EdgeInsetsGeometry get pmX32 {
+    return EdgeInsets.symmetric(horizontal: 32.r);
   }
 
-  EdgeInsetsGeometry get spaceY16 {
-    return const EdgeInsets.symmetric(
-      vertical: 16.0,
-    );
+  EdgeInsetsGeometry get pmY16 {
+    return EdgeInsets.symmetric(vertical: 16.r);
   }
 
-  EdgeInsetsGeometry get spaceY24 {
-    return const EdgeInsets.symmetric(
-      vertical: 24.0,
-    );
+  EdgeInsetsGeometry get pmY24 {
+    return EdgeInsets.symmetric(vertical: 24.r);
   }
 
-  EdgeInsetsGeometry get spaceY32 {
-    return const EdgeInsets.symmetric(
-      vertical: 32.0,
-    );
+  EdgeInsetsGeometry get pmY32 {
+    return EdgeInsets.symmetric(vertical: 32.r);
   }
 
-  EdgeInsetsGeometry get spaceT16 => const EdgeInsets.only(top: 16.0);
-  EdgeInsetsGeometry get spaceT24 => const EdgeInsets.only(top: 24.0);
-  EdgeInsetsGeometry get spaceT32 => const EdgeInsets.only(top: 32.0);
+  EdgeInsetsGeometry get pmT16 => EdgeInsets.only(top: 16.r);
+  EdgeInsetsGeometry get pmT24 => EdgeInsets.only(top: 24.r);
+  EdgeInsetsGeometry get pmT32 => EdgeInsets.only(top: 32.r);
 
-  EdgeInsetsGeometry get spaceR16 => const EdgeInsets.only(right: 16.0);
-  EdgeInsetsGeometry get spaceR24 => const EdgeInsets.only(right: 24.0);
-  EdgeInsetsGeometry get spaceR32 => const EdgeInsets.only(right: 32.0);
+  EdgeInsetsGeometry get pmR16 => EdgeInsets.only(right: 16.r);
+  EdgeInsetsGeometry get pmR24 => EdgeInsets.only(right: 24.r);
+  EdgeInsetsGeometry get pmR32 => EdgeInsets.only(right: 32.r);
 
-  EdgeInsetsGeometry get spaceB16 => const EdgeInsets.only(bottom: 16.0);
-  EdgeInsetsGeometry get spaceB24 => const EdgeInsets.only(bottom: 24.0);
-  EdgeInsetsGeometry get spaceB32 => const EdgeInsets.only(bottom: 32.0);
+  EdgeInsetsGeometry get pmB16 => EdgeInsets.only(bottom: 16.r);
+  EdgeInsetsGeometry get pmB24 => EdgeInsets.only(bottom: 24.r);
+  EdgeInsetsGeometry get pmB32 => EdgeInsets.only(bottom: 32.r);
 
-  EdgeInsetsGeometry get spaceL16 => const EdgeInsets.only(left: 16.0);
-  EdgeInsetsGeometry get spaceL24 => const EdgeInsets.only(left: 24.0);
-  EdgeInsetsGeometry get spaceL32 => const EdgeInsets.only(left: 32.0);
+  EdgeInsetsGeometry get pmL16 => EdgeInsets.only(left: 16.r);
+  EdgeInsetsGeometry get pmL24 => EdgeInsets.only(left: 24.r);
+  EdgeInsetsGeometry get pmL32 => EdgeInsets.only(left: 32.r);
 }

@@ -8,12 +8,4 @@ class AppProvider with ChangeNotifier {
   }
 
   Future<void> _init() async {}
-
-  bool _isDesktop = false;
-  bool get isDesktop => _isDesktop;
-
-  set isDesktop(bool value) {
-    _isDesktop = value;
-    notifyListeners();
-  }
 }

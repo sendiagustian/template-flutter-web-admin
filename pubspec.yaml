@@ -16,15 +16,36 @@ dependencies:
   #STATE MANAGEMENT
   provider: 6.1.2
 
+  #ROUTING
+  go_router: 14.0.1
+
   # RESPONSIVE SCREEN
   responsive_framework: 1.4.0
   flutter_screenutil: 5.9.0
+
+  #UTILITIES
+  url_strategy: 0.2.0 # URL Strategy
+  encrypt: 5.0.3 # Encrypt
+  intl: 0.19.0 # Intl
+  file_picker: 8.0.3 # File Picker
+  device_info_plus: 10.1.0 # Device Info
+  flutter_secure_storage: 9.0.0 # Secure Storage
+
+  #MORE PACKAGE
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^3.0.0
+
+flutter_launcher_icons:
+  web:
+    generate: true
+    image_path: "assets/icons/icon_app.png"
+    background_color: "#ffffff"
+    theme_color: "#ffffff"
 
 flutter:
   uses-material-design: true
