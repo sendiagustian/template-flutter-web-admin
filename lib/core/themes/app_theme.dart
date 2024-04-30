@@ -1,17 +1,11 @@
+import 'border_radius_theme.dart';
 import 'colors_theme.dart';
 import 'spacing_theme.dart';
 import 'typography_theme.dart';
 
-class AppTheme {
-  final bool isDesktop;
-  final bool isTablet;
-
-  const AppTheme({this.isDesktop = true, this.isTablet = false});
-
-  TypographyTheme get typography {
-    return TypographyTheme(isDesktop: isDesktop, isTablet: isTablet);
-  }
-
+abstract class AppTheme {
+  static const TypographyTheme typography = TypographyTheme();
   static const ColorsTheme colors = ColorsTheme();
-  static SpacingTheme spacing = SpacingTheme();
+  static const SpacingTheme spacing = SpacingTheme();
+  static const BorderRaduiusTheme radius = BorderRaduiusTheme();
 }

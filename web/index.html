@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
@@ -32,6 +19,33 @@
   <title>Admin Tong Nyampah</title>
   <link rel="manifest" href="manifest.json">
 
+  <style>
+    @keyframes pulse {
+      0% {
+        transform: scale(0.6);
+      }
+      50% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(0.6);
+      }
+    }
+
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .loading-icon {
+      width: 70px;
+      height: 70px;
+      animation: pulse 0.7s infinite alternate;
+    }
+  </style>
+
   <script>
     // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;
@@ -40,6 +54,9 @@
   <script src="flutter.js" defer></script>
 </head>
 <body bgColor="#F2F6FC">
+  <div class="loading-container">
+    <img class="loading-icon" src="assets/images/logo_icon.png" alt="Loading Icon">
+  </div>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js

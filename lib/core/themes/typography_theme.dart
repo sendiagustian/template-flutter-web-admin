@@ -1,106 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'app_theme.dart';
 
 class TypographyTheme {
-  final bool isDesktop;
-  final bool isTablet;
-
-  const TypographyTheme({this.isDesktop = true, this.isTablet = false});
+  const TypographyTheme();
 
   String get fontPrimary => 'Inter';
   String get fontSecondary => 'Gothic';
 
   TextStyle get displayLarge {
-    return TextStyle(
-      fontSize: isDesktop
-          ? 10.sp
-          : isTablet
-              ? 13.sp
-              : 20.sp,
+    return const TextStyle(
+      fontSize: 30,
       fontWeight: FontWeight.w300,
       color: Colors.black,
     );
   }
 
   TextStyle get displayMedium {
-    return TextStyle(
-      fontSize: isDesktop
-          ? 9.sp
-          : isTablet
-              ? 12.sp
-              : 18.sp,
+    return const TextStyle(
+      fontSize: 28,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
   }
 
   TextStyle get displaySmall {
-    return TextStyle(
-      fontSize: isDesktop
-          ? 8.sp
-          : isTablet
-              ? 11.sp
-              : 16.sp,
+    return const TextStyle(
+      fontSize: 26,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
   }
 
   TextStyle get headlineMedium {
-    return TextStyle(
-      fontSize: isDesktop
-          ? 7.5.sp
-          : isTablet
-              ? 10.5.sp
-              : 15.sp,
+    return const TextStyle(
+      fontSize: 25,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
   }
 
   TextStyle get headlineSmall {
-    return TextStyle(
-      fontSize: isDesktop
-          ? 7.sp
-          : isTablet
-              ? 10.sp
-              : 14.sp,
+    return const TextStyle(
+      fontSize: 24,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
   }
 
   TextStyle get titleLarge {
-    return TextStyle(
-      fontSize: isDesktop
-          ? 6.sp
-          : isTablet
-              ? 9.sp
-              : 14.sp,
+    return const TextStyle(
+      fontSize: 24,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     );
   }
 
   TextStyle get titleMedium {
-    return TextStyle(
-      fontSize: isDesktop
-          ? 5.5.sp
-          : isTablet
-              ? 8.5.sp
-              : 13.5.sp,
+    return const TextStyle(
+      fontSize: 23.5,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     );
   }
 
   TextStyle get titleSmall {
-    return TextStyle(
-      fontSize: isDesktop
-          ? 5.sp
-          : isTablet
-              ? 8.sp
-              : 13.sp,
+    return const TextStyle(
+      fontSize: 23,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     );
@@ -108,73 +74,49 @@ class TypographyTheme {
 
   TextStyle get bodyLarge {
     return TextStyle(
-      fontSize: isDesktop
-          ? 4.5.sp
-          : isTablet
-              ? 7.5.sp
-              : 13.sp,
+      fontSize: 23,
       fontWeight: FontWeight.w400,
-      color: const Color(0xFF333333),
+      color: AppTheme.colors.primaryText,
     );
   }
 
   TextStyle get bodyMedium {
     return TextStyle(
-      fontSize: isDesktop
-          ? 4.sp
-          : isTablet
-              ? 7.sp
-              : 12.sp,
+      fontSize: 22,
       fontWeight: FontWeight.w400,
-      color: const Color(0xFF333333),
+      color: AppTheme.colors.primaryText,
     );
   }
 
   TextStyle get bodySmall {
     return TextStyle(
-      fontSize: isDesktop
-          ? 3.5.sp
-          : isTablet
-              ? 6.5.sp
-              : 11.sp,
+      fontSize: 21,
       fontWeight: FontWeight.w400,
-      color: const Color(0xFF333333),
+      color: AppTheme.colors.primaryText,
     );
   }
 
   TextStyle get labelLarge {
     return TextStyle(
-      fontSize: isDesktop
-          ? 3.2.sp
-          : isTablet
-              ? 6.2.sp
-              : 10.sp,
+      fontSize: 20,
       fontWeight: FontWeight.w500,
-      color: const Color(0xFF333333),
+      color: AppTheme.colors.primaryText,
     );
   }
 
   TextStyle get labelMedium {
     return TextStyle(
-      fontSize: isDesktop
-          ? 3.sp
-          : isTablet
-              ? 6.sp
-              : 9.sp,
+      fontSize: 19,
       fontWeight: FontWeight.w400,
-      color: const Color(0xFF333333),
+      color: AppTheme.colors.primaryText,
     );
   }
 
   TextStyle get labelSmall {
     return TextStyle(
-      fontSize: isDesktop
-          ? 2.5.sp
-          : isTablet
-              ? 5.5.sp
-              : 8.sp,
+      fontSize: 18,
       fontWeight: FontWeight.w400,
-      color: const Color(0xFF333333),
+      color: AppTheme.colors.primaryText,
     );
   }
 

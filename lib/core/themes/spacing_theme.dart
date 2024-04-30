@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SpacingTheme {
-  SpacingTheme();
+  const SpacingTheme();
 
   double get doubleX4 => 4.w;
   double get doubleX8 => 8.w;
@@ -28,6 +28,8 @@ class SpacingTheme {
   SizedBox get mediumY => SizedBox(height: 6.h);
   SizedBox get largeY => SizedBox(height: 8.h);
 
+  EdgeInsetsGeometry get pm4 => EdgeInsets.all(4.r);
+  EdgeInsetsGeometry get pm8 => EdgeInsets.all(8.r);
   EdgeInsetsGeometry get pm16 => EdgeInsets.all(16.r);
   EdgeInsetsGeometry get pm24 => EdgeInsets.all(24.r);
   EdgeInsetsGeometry get pm32 => EdgeInsets.all(32.r);
