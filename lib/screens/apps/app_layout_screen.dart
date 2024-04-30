@@ -25,6 +25,7 @@ class AppLayoutScreen extends StatelessWidget {
       page: const ProfileScreen(),
     )
   ];
+
   @override
   Widget build(BuildContext context) {
     final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -33,28 +34,39 @@ class AppLayoutScreen extends StatelessWidget {
       create: (_) => SidebarProvider(state),
       child: Scaffold(
         key: scaffoldKey,
-        drawer: _drawer(context),
+        drawer: Consumer<SidebarProvider>(builder: (_, sidebarProvider, __) {
+          RouteItem? selectedItem = sidebarProvider.selectedMainMenu;
+          return _drawer(
+            context: context,
+            sidebarProvider: sidebarProvider,
+            initialSelectedItem: selectedItem ?? SideMenuRoute.routes.first,
+          );
+        }),
         bottomNavigationBar: _buildNavBottom(context),
         body: Row(
           children: [
             Consumer<SidebarProvider>(builder: (_, sidebarProvider, __) {
+              bool isLargeScreen = LayoutUtil(context).isDesktop;
               RouteItem? selectedItem = sidebarProvider.selectedMainMenu;
-              return SidebarWidget(
-                initialSelectedItem: selectedItem ?? SideMenuRoute.routes.first,
-                sidebarProvider: sidebarProvider,
-                items: SideMenuRoute.routes,
-              );
+              if (isLargeScreen) {
+                return SidebarWidget(
+                  initialSelectedItem: selectedItem ?? SideMenuRoute.routes.first,
+                  sidebarProvider: sidebarProvider,
+                  items: SideMenuRoute.routes,
+                );
+              }
+              return const SizedBox();
             }),
             Expanded(
               child: Column(
                 children: [
                   NavbarWidget(
                     state: state,
+                    navItems: itemNavMenus,
+                    profileItems: itemProfileMenus,
                     onMobileMenuTap: () {
                       scaffoldKey.currentState?.openDrawer();
                     },
-                    navItems: itemNavMenus,
-                    profileItems: itemProfileMenus,
                   ),
                   Expanded(
                     child: child,
@@ -68,23 +80,19 @@ class AppLayoutScreen extends StatelessWidget {
     );
   }
 
-  Widget? _drawer(BuildContext context) {
-    final bool isLargeScreen = LayoutUtil(context).isDesktop;
-    if (!isLargeScreen && SideMenuRoute.routes.isNotEmpty) {
-      return Drawer(
-        child: ListView(
-          children: SideMenuRoute.routes.map((item) {
-            return ListTile(
-              title: Text(
-                item.name,
-                style: AppTheme.typography.labelLarge,
-              ),
-            );
-          }).toList(),
-        ),
-      );
-    }
-    return null;
+  Widget _drawer({
+    required BuildContext context,
+    required SidebarProvider sidebarProvider,
+    required RouteItem initialSelectedItem,
+  }) {
+    return Drawer(
+      backgroundColor: AppTheme.colors.bgDark,
+      child: SidebarWidget(
+        initialSelectedItem: initialSelectedItem,
+        sidebarProvider: sidebarProvider,
+        items: SideMenuRoute.routes,
+      ),
+    );
   }
 
   Widget? _buildNavBottom(BuildContext context) {

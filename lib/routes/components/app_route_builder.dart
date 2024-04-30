@@ -19,6 +19,17 @@ class AppRouteBuilder {
     };
   }
 
+  static FutureOr<String?> Function(BuildContext, GoRouterState)? redirectDashboard(
+    AuthProvider authProvider,
+  ) {
+    return (context, state) {
+      if (authProvider.isLogin) {
+        return "/";
+      }
+      return null;
+    };
+  }
+
   static CustomTransitionPage call({
     required BuildContext context,
     AuthProvider? authProvider,

@@ -29,6 +29,7 @@ class AppRoute {
         ...SideMenuRoute.get(authProvider),
         GoRoute(
           path: '/login',
+          redirect: AppRouteBuilder.redirectDashboard(authProvider),
           pageBuilder: (context, state) {
             return AppRouteBuilder.call(
               context: context,

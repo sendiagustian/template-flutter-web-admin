@@ -4,7 +4,6 @@ import '../../routes/components/route_item.dart';
 import '../providers/sidebar_provider.dart';
 import '../services/navigator_service.dart';
 import '../themes/app_theme.dart';
-import '../utils/layout_util.dart';
 
 class SidebarWidget extends StatelessWidget {
   final RouteItem initialSelectedItem;
@@ -20,91 +19,70 @@ class SidebarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLargeScreen = LayoutUtil(context).isDesktop;
     List<String> categories = items.map((e) => e.category!).toSet().toList();
 
-    if (isLargeScreen) {
-      return Material(
-        color: AppTheme.colors.bgDark,
-        child: SizedBox(
-          width: 300,
-          child: Column(
-            children: [
-              _buildLogoTitle(),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      AppTheme.spacing.customY(30),
-                      ...List.generate(categories.length, (index) {
-                        String category = categories[index];
-                        List<RouteItem> menus =
-                            items.where((e) => e.category == category).toList();
+    return Material(
+      color: AppTheme.colors.bgDark,
+      child: SizedBox(
+        width: 300,
+        child: Column(
+          children: [
+            buildLogoTitle(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    AppTheme.spacing.customY(30),
+                    ...List.generate(categories.length, (index) {
+                      String category = categories[index];
+                      List<RouteItem> menus =
+                          items.where((e) => e.category == category).toList();
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(left: 16),
-                              child: Text(
-                                category,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(left: 16),
+                            child: Text(
+                              category,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
                               ),
                             ),
-                            AppTheme.spacing.smallY,
-                            ...List.generate(menus.length, (index) {
-                              final item = menus[index];
-                              return _buildItemMenu(context, item, index);
-                            }),
-                            AppTheme.spacing.customY(18),
-                          ],
-                        );
-                      })
-                    ],
-                  ),
+                          ),
+                          AppTheme.spacing.smallY,
+                          ...List.generate(menus.length, (index) {
+                            final item = menus[index];
+                            return buildItemMenu(
+                              context: context,
+                              sidebarProvider: sidebarProvider,
+                              initialSelectedItem: initialSelectedItem,
+                              item: item,
+                              index: index,
+                            );
+                          }),
+                          AppTheme.spacing.customY(18),
+                        ],
+                      );
+                    })
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      );
-    } else {
-      return const SizedBox();
-    }
-  }
-
-  Widget _buildLogoTitle() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
-      height: 60,
-      child: Center(
-        child: Row(
-          children: [
-            Image.asset(
-              'assets/icons/icon_app.png',
-              height: 35,
             ),
-            const Expanded(
-              child: Text(
-                "Tong Nyampah",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            )
           ],
         ),
       ),
     );
   }
 
-  Widget _buildItemMenu(BuildContext context, RouteItem item, int index) {
+  static Widget buildItemMenu({
+    required BuildContext context,
+    required SidebarProvider sidebarProvider,
+    required RouteItem initialSelectedItem,
+    required RouteItem item,
+    required int index,
+  }) {
     bool isSelected = initialSelectedItem.path == item.path;
     List<RouteItem> subRoutes = item.subRoutes;
 
@@ -186,7 +164,7 @@ class SidebarWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildSubItemMenu(
+  static Widget _buildSubItemMenu(
     BuildContext context,
     SidebarProvider sidebarProvider,
     RouteItem mainRoute,
@@ -215,6 +193,34 @@ class SidebarWidget extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+
+  static Widget buildLogoTitle() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
+      height: 60,
+      child: Center(
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/icons/icon_app.png',
+              height: 35,
+            ),
+            const Expanded(
+              child: Text(
+                "Tong Nyampah",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

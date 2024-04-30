@@ -5,7 +5,9 @@ class AuthProvider with ChangeNotifier {
     _init();
   }
 
-  Future<void> _init() async {}
+  Future<void> _init() async {
+    isLogin = true;
+  }
 
   bool _isLogin = false;
   bool get isLogin => _isLogin;
