@@ -17,8 +17,4 @@ class LayoutUtil {
   bool get isMobile {
     return ResponsiveBreakpoints.of(context).isMobile;
   }
-
-  bool get isPhone {
-    return ResponsiveBreakpoints.of(context).isPhone;
-  }
 }

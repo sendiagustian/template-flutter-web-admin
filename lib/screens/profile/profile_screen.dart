@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
+  static const String route = '/profile';
+  static const String name = 'Profile';
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
-      body: const Center(
+    return const Scaffold(
+      body: Center(
         child: Text('Profile Screen'),
       ),
     );

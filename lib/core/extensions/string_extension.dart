@@ -45,7 +45,13 @@ extension StringExtension on String {
     List<String> words = input.split(RegExp(r'(?=[A-Z])'));
 
     List<String> newWords = words.map((e) {
-      String word = e.capitalize();
+      String word;
+      if (e.split('-').length > 1) {
+        word = e.split('-').map((e) => e.capitalize()).join(" ");
+      } else {
+        word = e.capitalize();
+      }
+
       return word;
     }).toList();
 

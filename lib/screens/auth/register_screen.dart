@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+import '../../core/services/navigator_service.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -12,7 +13,7 @@ class RegisterScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              context.go("/login");
+              NavigatorService.push(context: context, route: "/login");
             },
             icon: const Icon(Icons.login),
           ),
