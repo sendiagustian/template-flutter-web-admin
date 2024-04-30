@@ -1,0 +1,26 @@
+@keyframes pulse {
+    0% {
+        transform: scale(0.6);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0.6);
+    }
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loading-icon {
+    width: 70px;
+    height: 70px;
+    animation: pulse 0.7s infinite alternate;
+}

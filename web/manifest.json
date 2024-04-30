@@ -1,11 +1,11 @@
 {
-    "name": "dashboard",
-    "short_name": "dashboard",
+    "name": "Admin Tong Nyampah",
+    "short_name": "Admin Tong Nyampah",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
-    "description": "A new Flutter project.",
+    "description": "Website admin untuk Aplikasi Tong nyampah.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

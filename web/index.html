@@ -5,12 +5,12 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Website admin untuk Aplikasi Tong nyampah.">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="dashboard">
+  <meta name="apple-mobile-web-app-title" content="Admin Tong Nyampah">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
@@ -18,33 +18,7 @@
 
   <title>Admin Tong Nyampah</title>
   <link rel="manifest" href="manifest.json">
-
-  <style>
-    @keyframes pulse {
-      0% {
-        transform: scale(0.6);
-      }
-      50% {
-        transform: scale(1);
-      }
-      100% {
-        transform: scale(0.6);
-      }
-    }
-
-    .loading-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .loading-icon {
-      width: 70px;
-      height: 70px;
-      animation: pulse 0.7s infinite alternate;
-    }
-  </style>
+  <link rel="stylesheet" href="loader/loader.css">
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -55,22 +29,8 @@
 </head>
 <body bgColor="#F2F6FC">
   <div class="loading-container">
-    <img class="loading-icon" src="assets/images/logo_icon.png" alt="Loading Icon">
+    <img class="loading-icon" src="icons/logo_icon.png" alt="Loading Icon">
   </div>
-  <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
-      });
-    });
-  </script>
+  <script src="loader/loader.js" defer></script>
 </body>
 </html>

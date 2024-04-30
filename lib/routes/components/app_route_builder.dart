@@ -40,7 +40,7 @@ class AppRouteBuilder {
         // );
       },
       child: FutureBuilder(
-        future: Future.delayed(const Duration(milliseconds: 1000)),
+        future: Future.delayed(const Duration(milliseconds: 800)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const LoadingScreen();

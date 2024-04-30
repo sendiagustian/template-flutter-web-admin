@@ -11,6 +11,11 @@ import 'screens/auth/providers/auth_provider.dart';
 
 AppConfig appConfig = AppConfig();
 
+// FOR BUILD WEB
+// flutter build web --release --no-tree-shake-icons
+// FOR DEPLOY WEB
+// firebase deploy --only hosting:admin-tongnyampah
+
 Future<void> main() async {
   await appConfig.init();
   runApp(const MyApp());
