@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../routes/components/route_item.dart';
+import '../../routes/route_item.dart';
 import '../services/navigator_service.dart';
 import '../themes/app_theme.dart';
 import '../utils/layout_util.dart';
@@ -9,16 +8,16 @@ import 'breadcrumb_widget.dart';
 import 'icon_profile_widget.dart';
 
 class NavbarWidget extends StatelessWidget implements PreferredSizeWidget {
-  final GoRouterState state;
+  final String? title;
   final List<RouteItem> navItems;
   final List<RouteItem> profileItems;
   final void Function()? onMobileMenuTap;
 
   const NavbarWidget({
     super.key,
-    required this.state,
     required this.navItems,
     required this.profileItems,
+    this.title,
     this.onMobileMenuTap,
   });
 
@@ -30,8 +29,21 @@ class NavbarWidget extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       leading: _buildLeading(isLargeScreen),
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [BreadcrumbsWidget(state: state), if (isLargeScreen) Expanded(child: _navBarItems(context))],
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (navItems.isEmpty)
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: BreadcrumbsWidget(title: title),
+              ),
+            ),
+          if (isLargeScreen)
+            Expanded(
+              child: _navBarItems(context),
+            ),
+        ],
       ),
       actions: [
         Padding(

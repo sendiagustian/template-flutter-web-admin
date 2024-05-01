@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../screens/apps/style_typography_screen.dart';
 import '../screens/apps/widget_badge_screen.dart';
@@ -13,7 +12,6 @@ import '../screens/apps/widget_list_tile_screen.dart';
 import '../screens/apps/widget_popover_screen.dart';
 import '../screens/apps/widget_table_screen.dart';
 import '../screens/apps/widget_tabs_screen.dart';
-import '../screens/auth/providers/auth_provider.dart';
 import '../screens/dashboard/dashboard_screen.dart';
 // import '../screens/config_app/config_app_screen.dart';
 // import '../screens/mamage_cms_mission/mamage_cms_mission_screen.dart';
@@ -23,8 +21,7 @@ import '../screens/dashboard/dashboard_screen.dart';
 // import '../screens/manage_users/manage_users_screen.dart';
 // import '../screens/verification_article/verification_article_screen.dart';
 // import '../screens/verification_complaint/verification_complaint_screen.dart';
-import 'components/app_route_builder.dart';
-import 'components/route_item.dart';
+import 'route_item.dart';
 
 class SideMenuRoute {
   static List<RouteItem> routes = [
@@ -184,37 +181,4 @@ class SideMenuRoute {
       ],
     ),
   ];
-
-  static List<GoRoute> get(AuthProvider authProvider) {
-    return List.generate(routes.length, (index) {
-      RouteItem route = routes[index];
-      return GoRoute(
-        path: route.path,
-        redirect: AppRouteBuilder.redirectLogin(authProvider),
-        pageBuilder: (context, state) {
-          return AppRouteBuilder.call(
-            context: context,
-            authProvider: authProvider,
-            state: state,
-            child: route.page,
-          );
-        },
-        routes: List.generate(route.subRoutes.length, (index) {
-          RouteItem subRoute = route.subRoutes[index];
-          return GoRoute(
-            path: subRoute.path.split("/").last,
-            redirect: AppRouteBuilder.redirectLogin(authProvider),
-            pageBuilder: (context, state) {
-              return AppRouteBuilder.call(
-                context: context,
-                authProvider: authProvider,
-                state: state,
-                child: subRoute.page,
-              );
-            },
-          );
-        }),
-      );
-    });
-  }
 }

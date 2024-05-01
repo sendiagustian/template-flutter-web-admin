@@ -110,15 +110,13 @@ class LoginScreen extends StatelessWidget {
               child: Consumer<AuthProvider>(builder: (_, authProvider, __) {
                 return ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Text(
                       'Sign in',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                   onPressed: () {

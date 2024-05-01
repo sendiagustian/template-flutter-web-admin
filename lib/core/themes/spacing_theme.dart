@@ -20,11 +20,15 @@ class SpacingTheme {
   SizedBox customX(double value) => SizedBox(width: value.w);
   SizedBox customY(double value) => SizedBox(height: value.h);
 
-  SizedBox get smallX => SizedBox(width: 4.w);
-  SizedBox get mediumX => SizedBox(width: 6.w);
-  SizedBox get largeX => SizedBox(width: 8.w);
+  SizedBox get exSmallX => SizedBox(width: 4.w);
+  SizedBox get smallX => SizedBox(width: 8.w);
+  SizedBox get mediumX => SizedBox(width: 16.w);
+  SizedBox get largeX => SizedBox(width: 24.w);
+  SizedBox get exLargeX => SizedBox(width: 32.w);
 
-  SizedBox get smallY => SizedBox(height: 4.h);
-  SizedBox get mediumY => SizedBox(height: 6.h);
-  SizedBox get largeY => SizedBox(height: 8.h);
+  SizedBox get exSmallY => SizedBox(height: 4.h);
+  SizedBox get smallY => SizedBox(height: 8.h);
+  SizedBox get mediumY => SizedBox(height: 16.h);
+  SizedBox get largeY => SizedBox(height: 24.h);
+  SizedBox get exLargeY => SizedBox(height: 32.h);
 }

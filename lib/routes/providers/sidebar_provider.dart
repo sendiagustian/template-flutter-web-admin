@@ -1,40 +1,28 @@
 import 'package:flutter/widgets.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../routes/components/route_item.dart';
-import '../../routes/side_menu_route.dart';
-// import '../utils/session_util.dart';
+import '../route_item.dart';
+import '../side_menu_route.dart';
+// import '../../core/utils/session_util.dart';
 
 class SidebarProvider with ChangeNotifier {
-  final GoRouterState state;
-  SidebarProvider(this.state) {
+  SidebarProvider() {
     _init();
   }
 
   // static final SessionUtil _sessionUtil = SessionUtil();
 
   Future<void> _init() async {
-    // scrollSideControl.addListener(() async {
-    //   await _sessionUtil.writeSession("SIDE_POSITION", "${scrollSideControl.offset}");
-    // });
-
-    // scrollDrawerControl.addListener(() async {
-    //   await _sessionUtil.writeSession("DRAWER_POSITION", "${scrollDrawerControl.offset}");
-    // });
-
     // await _sessionUtil.readSession("SIDE_POSITION").then((sidebarPosition) {
     //   if (sidebarPosition != null) {
     //     _scrollSideControl.jumpTo(double.parse(sidebarPosition));
     //   }
     // });
 
-    // await _sessionUtil.readSession("DRAWER_POSITION").then((sidebarPosition) {
-    //   if (sidebarPosition != null) {
-    //     _scrollDrawerControl.jumpTo(double.parse(sidebarPosition));
-    //   }
+    // scrollSideControl.addListener(() async {
+    //   await _sessionUtil.writeSession("SIDE_POSITION", "${scrollSideControl.offset}");
     // });
 
-    List<String>? pathSegments = state.fullPath!.split('/').where((segment) => segment.isNotEmpty).toList();
+    List<String>? pathSegments = Uri.base.path.split('/').where((segment) => segment.isNotEmpty).toList();
     if (pathSegments.isNotEmpty) {
       selectedMainMenu = SideMenuRoute.routes.where((element) {
         return element.path == "/${pathSegments[0]}";
@@ -73,13 +61,6 @@ class SidebarProvider with ChangeNotifier {
   ScrollController get scrollSideControl => _scrollSideControl;
   set scrollSideControl(ScrollController value) {
     _scrollSideControl = value;
-    notifyListeners();
-  }
-
-  ScrollController _scrollDrawerControl = ScrollController();
-  ScrollController get scrollDrawerControl => _scrollDrawerControl;
-  set scrollDrawerControl(ScrollController value) {
-    _scrollDrawerControl = value;
     notifyListeners();
   }
 }

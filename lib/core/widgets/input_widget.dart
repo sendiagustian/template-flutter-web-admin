@@ -352,6 +352,7 @@ class InputWidget {
               },
               fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) {
                 return formFieldInput(
+                  suffixIcon: const Icon(Icons.arrow_drop_down),
                   focusNode: focusNode,
                   controller: textEditingController,
                   context: context,
@@ -359,7 +360,8 @@ class InputWidget {
                 );
               },
               optionsViewBuilder: (context, onSelected, options) {
-                return Align(
+                return Container(
+                  margin: AppTheme.geometry.exSmallT,
                   alignment: Alignment.topLeft,
                   child: ConstrainedBox(
                     constraints: BoxConstraints(maxHeight: maxHeightOption, maxWidth: constraints.maxWidth),

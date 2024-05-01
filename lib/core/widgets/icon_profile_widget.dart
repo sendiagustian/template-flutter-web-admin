@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../routes/components/route_item.dart';
+import '../../routes/route_item.dart';
 import '../../screens/profile/profile_screen.dart';
 import '../services/navigator_service.dart';
 

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/providers/sidebar_provider.dart';
+import '../../routes/providers/sidebar_provider.dart';
 import '../../core/utils/layout_util.dart';
 import '../../core/widgets/navbar_widget.dart';
 import '../../core/widgets/sidebar_widget.dart';
-import '../../routes/components/route_item.dart';
+import '../../routes/route_item.dart';
 import '../../routes/side_menu_route.dart';
 import '../profile/profile_screen.dart';
 
 class BaseLayoutScreen extends StatelessWidget {
-  final GoRouterState state;
+  final String? title;
   final Widget child;
 
-  const BaseLayoutScreen({super.key, required this.state, required this.child});
+  const BaseLayoutScreen(this.child, {super.key, this.title});
 
   static final List<RouteItem> itemNavMenus = [];
   static final List<RouteItem> itemProfileMenus = [
@@ -32,7 +31,7 @@ class BaseLayoutScreen extends StatelessWidget {
     final bool isLargeScreen = LayoutUtil(context).isDesktop;
 
     return ChangeNotifierProvider(
-      create: (_) => SidebarProvider(state),
+      create: (_) => SidebarProvider(),
       child: Scaffold(
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
@@ -40,7 +39,6 @@ class BaseLayoutScreen extends StatelessWidget {
           RouteItem? selectedItem = sidebarProvider.selectedMainMenu;
           return SidebarWidget(
             initialSelectedItem: selectedItem ?? initialSelectedItem,
-            scrollController: sidebarProvider.scrollDrawerControl,
             sidebarProvider: sidebarProvider,
             items: SideMenuRoute.routes,
           );
@@ -63,7 +61,7 @@ class BaseLayoutScreen extends StatelessWidget {
               child: Column(
                 children: [
                   NavbarWidget(
-                    state: state,
+                    title: !isLargeScreen ? title : null,
                     navItems: itemNavMenus,
                     profileItems: itemProfileMenus,
                     onMobileMenuTap: () {

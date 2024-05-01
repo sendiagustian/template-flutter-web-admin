@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../core/themes/app_theme.dart';
+import '../../core/utils/layout_util.dart';
+import '../../core/widgets/card_widget.dart';
+
 class WidgetCardScreen extends StatelessWidget {
   const WidgetCardScreen({super.key});
 
@@ -10,9 +14,98 @@ class WidgetCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Widget Card Screen'),
+    bool isLargeScreen = LayoutUtil(context).isDesktop;
+    return Scaffold(
+      body: SingleChildScrollView(
+        padding: AppTheme.geometry.large,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Form Widgets",
+              style: AppTheme.typography.displayMedium,
+            ),
+            AppTheme.spacing.customY(24),
+            Builder(builder: (context) {
+              if (isLargeScreen) {
+                return Row(
+                  children: [
+                    Expanded(
+                      child: CardWidget.basic(
+                        title: "Detail Card",
+                        placeholder: const AssetImage("assets/images/placeholder.png"),
+                        image: const AssetImage("assets/images/banner.png"),
+                        children: [
+                          const Text("This is a detail card"),
+                          const Text("This is a detail card"),
+                          const Text("This is a detail card"),
+                        ],
+                      ),
+                    ),
+                    AppTheme.spacing.smallX,
+                    Expanded(
+                      child: CardWidget.basic(
+                        title: "Detail Card",
+                        placeholder: const AssetImage("assets/images/placeholder.png"),
+                        image: const AssetImage("assets/images/banner.png"),
+                        children: [
+                          const Text("This is a detail card"),
+                          const Text("This is a detail card"),
+                          const Text("This is a detail card"),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return Column(
+                  children: [
+                    CardWidget.basic(
+                      title: "Detail Card",
+                      placeholder: const AssetImage("assets/images/placeholder.png"),
+                      image: const AssetImage("assets/images/banner.png"),
+                      children: [
+                        const Text("This is a detail card"),
+                        const Text("This is a detail card"),
+                        const Text("This is a detail card"),
+                      ],
+                    ),
+                    AppTheme.spacing.smallY,
+                    CardWidget.basic(
+                      title: "Detail Card",
+                      placeholder: const AssetImage("assets/images/placeholder.png"),
+                      image: const AssetImage("assets/images/banner.png"),
+                      children: [
+                        const Text("This is a detail card"),
+                        const Text("This is a detail card"),
+                        const Text("This is a detail card"),
+                      ],
+                    ),
+                  ],
+                );
+              }
+            }),
+            AppTheme.spacing.mediumY,
+            CardWidget.expansion(
+              title: "Detail Card",
+              initiallyExpanded: true,
+              children: [
+                const Text("This is a detail card"),
+                const Text("This is a detail card"),
+                const Text("This is a detail card"),
+              ],
+            ),
+            AppTheme.spacing.customY(24),
+            CardWidget.basic(
+              title: "Detail Card",
+              children: [
+                const Text("This is a detail card"),
+                const Text("This is a detail card"),
+                const Text("This is a detail card"),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
