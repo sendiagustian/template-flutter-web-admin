@@ -15,6 +15,8 @@ AppConfig appConfig = AppConfig();
 // flutter build web --release --no-tree-shake-icons
 // FOR DEPLOY WEB
 // firebase deploy --only hosting:admin-tongnyampah
+// RUN WITH IP
+// flutter run -d web-server --web-hostname 0.0.0.0 --web-port 8989
 
 Future<void> main() async {
   await appConfig.init();

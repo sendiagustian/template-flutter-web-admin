@@ -31,14 +31,11 @@ class NavbarWidget extends StatelessWidget implements PreferredSizeWidget {
       leading: _buildLeading(isLargeScreen),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          BreadcrumbsWidget(state: state),
-          if (isLargeScreen) Expanded(child: _navBarItems(context))
-        ],
+        children: [BreadcrumbsWidget(state: state), if (isLargeScreen) Expanded(child: _navBarItems(context))],
       ),
       actions: [
         Padding(
-          padding: AppTheme.spacing.pmR16,
+          padding: AppTheme.geometry.mediumR,
           child: CircleAvatar(
             child: IconProfileWidget(profileItems),
           ),

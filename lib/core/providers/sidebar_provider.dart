@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../routes/components/route_item.dart';
 import '../../routes/side_menu_route.dart';
+// import '../utils/session_util.dart';
 
 class SidebarProvider with ChangeNotifier {
   final GoRouterState state;
@@ -10,12 +11,30 @@ class SidebarProvider with ChangeNotifier {
     _init();
   }
 
-  Future<void> _init() async {
-    List<String>? pathSegments = state.fullPath!
-        .split('/')
-        .where((segment) => segment.isNotEmpty)
-        .toList();
+  // static final SessionUtil _sessionUtil = SessionUtil();
 
+  Future<void> _init() async {
+    // scrollSideControl.addListener(() async {
+    //   await _sessionUtil.writeSession("SIDE_POSITION", "${scrollSideControl.offset}");
+    // });
+
+    // scrollDrawerControl.addListener(() async {
+    //   await _sessionUtil.writeSession("DRAWER_POSITION", "${scrollDrawerControl.offset}");
+    // });
+
+    // await _sessionUtil.readSession("SIDE_POSITION").then((sidebarPosition) {
+    //   if (sidebarPosition != null) {
+    //     _scrollSideControl.jumpTo(double.parse(sidebarPosition));
+    //   }
+    // });
+
+    // await _sessionUtil.readSession("DRAWER_POSITION").then((sidebarPosition) {
+    //   if (sidebarPosition != null) {
+    //     _scrollDrawerControl.jumpTo(double.parse(sidebarPosition));
+    //   }
+    // });
+
+    List<String>? pathSegments = state.fullPath!.split('/').where((segment) => segment.isNotEmpty).toList();
     if (pathSegments.isNotEmpty) {
       selectedMainMenu = SideMenuRoute.routes.where((element) {
         return element.path == "/${pathSegments[0]}";
@@ -50,16 +69,17 @@ class SidebarProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool _isDrawerOpen = false;
-  bool get isDrawerOpen => _isDrawerOpen;
-
-  void openDrawer() {
-    _isDrawerOpen = true;
+  ScrollController _scrollSideControl = ScrollController();
+  ScrollController get scrollSideControl => _scrollSideControl;
+  set scrollSideControl(ScrollController value) {
+    _scrollSideControl = value;
     notifyListeners();
   }
 
-  void closeDrawer() {
-    _isDrawerOpen = false;
+  ScrollController _scrollDrawerControl = ScrollController();
+  ScrollController get scrollDrawerControl => _scrollDrawerControl;
+  set scrollDrawerControl(ScrollController value) {
+    _scrollDrawerControl = value;
     notifyListeners();
   }
 }

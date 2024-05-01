@@ -7,12 +7,14 @@ import '../themes/app_theme.dart';
 
 class SidebarWidget extends StatelessWidget {
   final RouteItem initialSelectedItem;
+  final ScrollController scrollController;
   final SidebarProvider sidebarProvider;
   final List<RouteItem> items;
 
   const SidebarWidget({
     super.key,
     required this.initialSelectedItem,
+    required this.scrollController,
     required this.sidebarProvider,
     required this.items,
   });
@@ -27,16 +29,16 @@ class SidebarWidget extends StatelessWidget {
         width: 300,
         child: Column(
           children: [
-            buildLogoTitle(),
+            _buildLogoTitle(),
             Expanded(
               child: SingleChildScrollView(
+                controller: scrollController,
                 child: Column(
                   children: [
                     AppTheme.spacing.customY(30),
                     ...List.generate(categories.length, (index) {
                       String category = categories[index];
-                      List<RouteItem> menus =
-                          items.where((e) => e.category == category).toList();
+                      List<RouteItem> menus = items.where((e) => e.category == category).toList();
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +78,7 @@ class SidebarWidget extends StatelessWidget {
     );
   }
 
-  static Widget buildItemMenu({
+  Widget buildItemMenu({
     required BuildContext context,
     required SidebarProvider sidebarProvider,
     required RouteItem initialSelectedItem,
@@ -153,8 +155,7 @@ class SidebarWidget extends StatelessWidget {
           ),
         ),
         Builder(builder: (context) {
-          bool expandSubMenu =
-              sidebarProvider.expandSubMenu?.subRoutes == subRoutes;
+          bool expandSubMenu = sidebarProvider.expandSubMenu?.subRoutes == subRoutes;
           if (expandSubMenu) {
             return _buildSubItemMenu(context, sidebarProvider, item, subRoutes);
           }
@@ -164,7 +165,7 @@ class SidebarWidget extends StatelessWidget {
     );
   }
 
-  static Widget _buildSubItemMenu(
+  Widget _buildSubItemMenu(
     BuildContext context,
     SidebarProvider sidebarProvider,
     RouteItem mainRoute,
@@ -196,7 +197,7 @@ class SidebarWidget extends StatelessWidget {
     );
   }
 
-  static Widget buildLogoTitle() {
+  Widget _buildLogoTitle() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
       height: 60,
