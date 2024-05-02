@@ -38,9 +38,9 @@ class InputWidget {
               children: [
                 Text(
                   title,
-                  style: titleStyle ?? AppTheme.typography.titleMedium,
+                  style: titleStyle ?? AppTheme.typography.titleSmall,
                 ),
-                AppTheme.spacing.mediumY,
+                AppTheme.spacing.exSmallY,
               ],
             );
           }
@@ -133,9 +133,9 @@ class InputWidget {
       children: [
         Text(
           title,
-          style: titleStyle ?? AppTheme.typography.titleMedium,
+          style: titleStyle ?? AppTheme.typography.titleSmall,
         ),
-        AppTheme.spacing.mediumY,
+        AppTheme.spacing.exSmallY,
         Container(
           color: Colors.white,
           child: Row(
@@ -215,10 +215,10 @@ class InputWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             title,
-            style: titleStyle ?? AppTheme.typography.titleMedium,
+            style: titleStyle ?? AppTheme.typography.titleSmall,
           ),
         ),
-        AppTheme.spacing.mediumY,
+        AppTheme.spacing.exSmallY,
         Container(
           color: Colors.white,
           child: TextFormField(
@@ -272,7 +272,7 @@ class InputWidget {
           title,
           style: AppTheme.typography.titleMedium,
         ),
-        AppTheme.spacing.mediumY,
+        AppTheme.spacing.exSmallY,
         Container(
           color: Colors.white,
           height: height,
@@ -338,10 +338,10 @@ class InputWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 title,
-                style: titleStyle ?? AppTheme.typography.titleMedium,
+                style: titleStyle ?? AppTheme.typography.titleSmall,
               ),
             ),
-            AppTheme.spacing.mediumY,
+            AppTheme.spacing.exSmallY,
             RawAutocomplete<String>(
               onSelected: onSelected,
               optionsBuilder: (TextEditingValue textEditingValue) {

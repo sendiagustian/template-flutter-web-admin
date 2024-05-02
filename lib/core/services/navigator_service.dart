@@ -33,4 +33,11 @@ class NavigatorService {
   }) {
     AppRouter.instance.navigateTo(context, route);
   }
+
+  static void pushReplace({
+    required BuildContext context,
+    required String route,
+  }) {
+    AppRouter.instance.navigateTo(context, route, replace: true);
+  }
 }

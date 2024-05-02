@@ -56,13 +56,15 @@ class MyApp extends StatelessWidget {
                       onGenerateRoute: AppRouter.instance.generator,
                       builder: (_, child) {
                         return ResponsiveBreakpoints.builder(
-                          child: child!,
                           breakpoints: const [
                             Breakpoint(start: 0, end: 750, name: MOBILE),
                             Breakpoint(start: 751, end: 1024, name: TABLET),
                             Breakpoint(start: 1025, end: 1920, name: DESKTOP),
                             Breakpoint(start: 1921, end: double.infinity, name: '4K'),
                           ],
+                          child: Builder(builder: (context) {
+                            return child!;
+                          }),
                         );
                       },
                     );
