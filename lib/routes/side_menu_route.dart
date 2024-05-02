@@ -118,17 +118,17 @@ class SideMenuRoute {
           page: const WidgetFormScreen(),
         ),
         RouteItem(
+          path: WidgetCardScreen.route,
+          name: WidgetCardScreen.name,
+          icon: WidgetCardScreen.icon,
+          page: const WidgetCardScreen(),
+        ),
+        RouteItem(
           path: WidgetTableScreen.route,
           name: WidgetTableScreen.name,
           category: WidgetTableScreen.category,
           icon: WidgetTableScreen.icon,
           page: const WidgetTableScreen(),
-        ),
-        RouteItem(
-          path: WidgetBadgeScreen.route,
-          name: WidgetBadgeScreen.name,
-          icon: WidgetBadgeScreen.icon,
-          page: const WidgetBadgeScreen(),
         ),
         RouteItem(
           path: WidgetButtonScreen.route,
@@ -143,10 +143,10 @@ class SideMenuRoute {
           page: const WidgetCarauselScreen(),
         ),
         RouteItem(
-          path: WidgetCardScreen.route,
-          name: WidgetCardScreen.name,
-          icon: WidgetCardScreen.icon,
-          page: const WidgetCardScreen(),
+          path: WidgetBadgeScreen.route,
+          name: WidgetBadgeScreen.name,
+          icon: WidgetBadgeScreen.icon,
+          page: const WidgetBadgeScreen(),
         ),
         RouteItem(
           path: WidgetDialogScreen.route,

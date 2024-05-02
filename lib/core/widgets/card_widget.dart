@@ -44,6 +44,7 @@ class CardWidget {
   static Widget basic({
     required String title,
     required List<Widget> children,
+    bool withSeparator = true,
     ImageProvider<Object>? placeholder,
     ImageProvider<Object>? image,
     double? heightImage = 200,
@@ -73,12 +74,16 @@ class CardWidget {
               ),
             ),
           Padding(
-            padding: noImage ? AppTheme.geometry.medium : AppTheme.geometry.custom(left: 16, top: 16, right: 16, bottom: 12),
+            padding: noImage
+                ? AppTheme.geometry.medium
+                : AppTheme.geometry.custom(left: 16, top: 16, right: 16, bottom: withSeparator ? 12 : 0),
             child: Text(title, style: AppTheme.typography.titleMedium),
           ),
-          if (noImage) _separator(isExpansion: false),
+          if (noImage && withSeparator) _separator(isExpansion: false),
           Container(
-            padding: noImage ? AppTheme.geometry.medium : AppTheme.geometry.custom(left: 16, top: 0, right: 16, bottom: 16),
+            padding: noImage && withSeparator
+                ? AppTheme.geometry.medium
+                : AppTheme.geometry.custom(left: 16, top: 0, right: 16, bottom: 16),
             child: Column(
               crossAxisAlignment: crossAxisAlignment,
               children: children,

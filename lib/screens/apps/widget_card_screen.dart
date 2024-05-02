@@ -14,7 +14,6 @@ class WidgetCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLargeScreen = LayoutUtil(context).isDesktop;
     return Scaffold(
       body: SingleChildScrollView(
         padding: AppTheme.geometry.large,
@@ -27,7 +26,7 @@ class WidgetCardScreen extends StatelessWidget {
             ),
             AppTheme.spacing.customY(24),
             Builder(builder: (context) {
-              if (isLargeScreen) {
+              if (isLargeScreen(context)) {
                 return Row(
                   children: [
                     Expanded(

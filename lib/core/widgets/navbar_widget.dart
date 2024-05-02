@@ -23,11 +23,9 @@ class NavbarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isLargeScreen = LayoutUtil(context).isDesktop;
-
     return AppBar(
       automaticallyImplyLeading: false,
-      leading: _buildLeading(isLargeScreen),
+      leading: _buildLeading(isLargeScreen(context)),
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +37,7 @@ class NavbarWidget extends StatelessWidget implements PreferredSizeWidget {
                 child: BreadcrumbsWidget(title: title),
               ),
             ),
-          if (isLargeScreen)
+          if (isLargeScreen(context))
             Expanded(
               child: _navBarItems(context),
             ),

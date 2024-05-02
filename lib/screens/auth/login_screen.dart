@@ -11,19 +11,15 @@ import 'providers/auth_provider.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
-    final bool isLargeScreen = LayoutUtil(context).isDesktop;
-
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
           child: Container(
             constraints: const BoxConstraints(maxWidth: 900, maxHeight: 500),
             child: Builder(builder: (context) {
-              if (isLargeScreen) {
+              if (isLargeScreen(context)) {
                 return GridView(
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -79,17 +75,16 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _buildLogo(BuildContext context) {
-    final bool isLargeScreen = LayoutUtil(context).isDesktop;
-
     return Image.asset(
       'assets/images/logo_name.png',
-      width: isLargeScreen ? 400 : 300,
+      width: isLargeScreen(context) ? 400 : 300,
     );
   }
 
   Widget _buildForm(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Form(
-      key: _formKey,
+      key: formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

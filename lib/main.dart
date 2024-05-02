@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -15,10 +16,10 @@ AppConfig appConfig = AppConfig();
 
 // FOR BUILD WEB
 // flutter build web --release --no-tree-shake-icons
-// FOR DEPLOY WEB
-// firebase deploy --only hosting:admin-tongnyampah
 // RUN WITH IP
 // flutter run -d web-server --web-hostname 0.0.0.0 --web-port 8989
+// FOR DEPLOY WEB
+// firebase deploy --only hosting:admin-tongnyampah
 
 Future<void> main() async {
   await appConfig.init();
@@ -53,18 +54,17 @@ class MyApp extends StatelessWidget {
                       title: 'Admin Tong Nyampah',
                       debugShowCheckedModeBanner: false,
                       initialRoute: DashboardScreen.route,
+                      scrollBehavior: WebHorizontalScrollBehavior(),
                       onGenerateRoute: AppRouter.instance.generator,
                       builder: (_, child) {
                         return ResponsiveBreakpoints.builder(
+                          child: child!,
                           breakpoints: const [
                             Breakpoint(start: 0, end: 750, name: MOBILE),
                             Breakpoint(start: 751, end: 1024, name: TABLET),
                             Breakpoint(start: 1025, end: 1920, name: DESKTOP),
                             Breakpoint(start: 1921, end: double.infinity, name: '4K'),
                           ],
-                          child: Builder(builder: (context) {
-                            return child!;
-                          }),
                         );
                       },
                     );
@@ -76,5 +76,18 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class WebHorizontalScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices {
+    return {
+      PointerDeviceKind.mouse,
+      PointerDeviceKind.touch,
+      PointerDeviceKind.trackpad,
+      PointerDeviceKind.stylus,
+      PointerDeviceKind.invertedStylus,
+    };
   }
 }

@@ -28,7 +28,6 @@ class BaseLayoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final scaffoldKey = GlobalKey<ScaffoldState>();
     final initialSelectedItem = SideMenuRoute.routes.first;
-    final bool isLargeScreen = LayoutUtil(context).isDesktop;
 
     return ChangeNotifierProvider(
       create: (_) => SidebarProvider(),
@@ -47,7 +46,7 @@ class BaseLayoutScreen extends StatelessWidget {
           children: [
             Consumer<SidebarProvider>(builder: (_, sidebarProvider, __) {
               RouteItem? selectedItem = sidebarProvider.selectedMainMenu;
-              if (isLargeScreen) {
+              if (isLargeScreen(context)) {
                 return SidebarWidget(
                   initialSelectedItem: selectedItem ?? initialSelectedItem,
                   scrollController: sidebarProvider.scrollSideControl,
@@ -61,7 +60,7 @@ class BaseLayoutScreen extends StatelessWidget {
               child: Column(
                 children: [
                   NavbarWidget(
-                    title: !isLargeScreen ? title : null,
+                    title: !isLargeScreen(context) ? title : null,
                     navItems: itemNavMenus,
                     profileItems: itemProfileMenus,
                     onMobileMenuTap: () {

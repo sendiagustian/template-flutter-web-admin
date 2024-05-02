@@ -16,8 +16,6 @@ class WidgetFormScreen extends StatefulWidget {
 }
 
 class _WidgetFormScreenState extends State<WidgetFormScreen> {
-  final _formKey = GlobalKey<FormState>();
-
   TextEditingController datePickerController = TextEditingController();
   TextEditingController timePickerController = TextEditingController();
 
@@ -26,11 +24,12 @@ class _WidgetFormScreenState extends State<WidgetFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
       body: SingleChildScrollView(
         padding: AppTheme.geometry.large,
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
