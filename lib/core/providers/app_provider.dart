@@ -8,4 +8,11 @@ class AppProvider with ChangeNotifier {
   }
 
   Future<void> _init() async {}
+
+  bool _isHovered = false;
+  bool get isHovered => _isHovered;
+  set isHovered(bool value) {
+    _isHovered = value;
+    notifyListeners();
+  }
 }

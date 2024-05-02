@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -6,13 +7,17 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'core/configs/app_config.dart';
 import 'core/providers/app_provider.dart';
 import 'core/themes/base_theme.dart';
-import 'routes/app_route.dart';
+import 'routes/router.dart';
+import 'routes/providers/router_provider.dart';
 import 'screens/auth/providers/auth_provider.dart';
+import 'screens/dashboard/dashboard_screen.dart';
 
 AppConfig appConfig = AppConfig();
 
 // FOR BUILD WEB
 // flutter build web --release --no-tree-shake-icons
+// RUN WITH IP
+// flutter run -d web-server --web-hostname 0.0.0.0 --web-port 8989
 // FOR DEPLOY WEB
 // firebase deploy --only hosting:admin-tongnyampah
 
@@ -40,27 +45,49 @@ class MyApp extends StatelessWidget {
             builder: (_, appProvider, authProvider, __) {
               BaseTheme theme = BaseTheme();
 
-              return MaterialApp.router(
-                title: 'Admin Tong Nyampah',
-                routerConfig: AppRoute(authProvider).router,
-                debugShowCheckedModeBanner: false,
-                theme: theme.baseTheme,
-                builder: (_, child) {
-                  return ResponsiveBreakpoints.builder(
-                    child: child!,
-                    breakpoints: const [
-                      Breakpoint(start: 0, end: 690, name: MOBILE),
-                      Breakpoint(start: 691, end: 1024, name: TABLET),
-                      Breakpoint(start: 1025, end: 1920, name: DESKTOP),
-                      Breakpoint(start: 1921, end: double.infinity, name: '4K'),
-                    ],
-                  );
-                },
+              return ChangeNotifierProvider(
+                create: (_) => RouterProvider(authProvider),
+                child: Consumer<RouterProvider>(
+                  builder: (_, routerProvider, __) {
+                    return MaterialApp(
+                      theme: theme.baseTheme,
+                      title: 'Admin Tong Nyampah',
+                      debugShowCheckedModeBanner: false,
+                      initialRoute: DashboardScreen.route,
+                      scrollBehavior: WebHorizontalScrollBehavior(),
+                      onGenerateRoute: AppRouter.instance.generator,
+                      builder: (_, child) {
+                        return ResponsiveBreakpoints.builder(
+                          child: child!,
+                          breakpoints: const [
+                            Breakpoint(start: 0, end: 750, name: MOBILE),
+                            Breakpoint(start: 751, end: 1024, name: TABLET),
+                            Breakpoint(start: 1025, end: 1920, name: DESKTOP),
+                            Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
               );
             },
           );
         },
       ),
     );
+  }
+}
+
+class WebHorizontalScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices {
+    return {
+      PointerDeviceKind.mouse,
+      PointerDeviceKind.touch,
+      PointerDeviceKind.trackpad,
+      PointerDeviceKind.stylus,
+      PointerDeviceKind.invertedStylus,
+    };
   }
 }

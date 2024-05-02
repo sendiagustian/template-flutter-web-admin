@@ -20,57 +20,15 @@ class SpacingTheme {
   SizedBox customX(double value) => SizedBox(width: value.w);
   SizedBox customY(double value) => SizedBox(height: value.h);
 
-  SizedBox get smallX => SizedBox(width: 4.w);
-  SizedBox get mediumX => SizedBox(width: 6.w);
-  SizedBox get largeX => SizedBox(width: 8.w);
+  SizedBox get exSmallX => SizedBox(width: 4.w);
+  SizedBox get smallX => SizedBox(width: 8.w);
+  SizedBox get mediumX => SizedBox(width: 16.w);
+  SizedBox get largeX => SizedBox(width: 24.w);
+  SizedBox get exLargeX => SizedBox(width: 32.w);
 
-  SizedBox get smallY => SizedBox(height: 4.h);
-  SizedBox get mediumY => SizedBox(height: 6.h);
-  SizedBox get largeY => SizedBox(height: 8.h);
-
-  EdgeInsetsGeometry get pm4 => EdgeInsets.all(4.r);
-  EdgeInsetsGeometry get pm8 => EdgeInsets.all(8.r);
-  EdgeInsetsGeometry get pm16 => EdgeInsets.all(16.r);
-  EdgeInsetsGeometry get pm24 => EdgeInsets.all(24.r);
-  EdgeInsetsGeometry get pm32 => EdgeInsets.all(32.r);
-
-  EdgeInsetsGeometry get pmX16 {
-    return EdgeInsets.symmetric(horizontal: 16.r);
-  }
-
-  EdgeInsetsGeometry get pmX24 {
-    return EdgeInsets.symmetric(horizontal: 24.r);
-  }
-
-  EdgeInsetsGeometry get pmX32 {
-    return EdgeInsets.symmetric(horizontal: 32.r);
-  }
-
-  EdgeInsetsGeometry get pmY16 {
-    return EdgeInsets.symmetric(vertical: 16.r);
-  }
-
-  EdgeInsetsGeometry get pmY24 {
-    return EdgeInsets.symmetric(vertical: 24.r);
-  }
-
-  EdgeInsetsGeometry get pmY32 {
-    return EdgeInsets.symmetric(vertical: 32.r);
-  }
-
-  EdgeInsetsGeometry get pmT16 => EdgeInsets.only(top: 16.r);
-  EdgeInsetsGeometry get pmT24 => EdgeInsets.only(top: 24.r);
-  EdgeInsetsGeometry get pmT32 => EdgeInsets.only(top: 32.r);
-
-  EdgeInsetsGeometry get pmR16 => EdgeInsets.only(right: 16.r);
-  EdgeInsetsGeometry get pmR24 => EdgeInsets.only(right: 24.r);
-  EdgeInsetsGeometry get pmR32 => EdgeInsets.only(right: 32.r);
-
-  EdgeInsetsGeometry get pmB16 => EdgeInsets.only(bottom: 16.r);
-  EdgeInsetsGeometry get pmB24 => EdgeInsets.only(bottom: 24.r);
-  EdgeInsetsGeometry get pmB32 => EdgeInsets.only(bottom: 32.r);
-
-  EdgeInsetsGeometry get pmL16 => EdgeInsets.only(left: 16.r);
-  EdgeInsetsGeometry get pmL24 => EdgeInsets.only(left: 24.r);
-  EdgeInsetsGeometry get pmL32 => EdgeInsets.only(left: 32.r);
+  SizedBox get exSmallY => SizedBox(height: 4.h);
+  SizedBox get smallY => SizedBox(height: 8.h);
+  SizedBox get mediumY => SizedBox(height: 16.h);
+  SizedBox get largeY => SizedBox(height: 24.h);
+  SizedBox get exLargeY => SizedBox(height: 32.h);
 }

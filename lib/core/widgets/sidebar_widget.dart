@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-import '../../routes/components/route_item.dart';
-import '../providers/sidebar_provider.dart';
+import '../../routes/route_item.dart';
+import '../../routes/providers/sidebar_provider.dart';
 import '../services/navigator_service.dart';
 import '../themes/app_theme.dart';
 
 class SidebarWidget extends StatelessWidget {
   final RouteItem initialSelectedItem;
+  final ScrollController? scrollController;
   final SidebarProvider sidebarProvider;
   final List<RouteItem> items;
 
   const SidebarWidget({
     super.key,
     required this.initialSelectedItem,
+    this.scrollController,
     required this.sidebarProvider,
     required this.items,
   });
@@ -21,62 +23,64 @@ class SidebarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> categories = items.map((e) => e.category!).toSet().toList();
 
-    return Material(
-      color: AppTheme.colors.bgDark,
-      child: SizedBox(
-        width: 300,
-        child: Column(
-          children: [
-            buildLogoTitle(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    AppTheme.spacing.customY(30),
-                    ...List.generate(categories.length, (index) {
-                      String category = categories[index];
-                      List<RouteItem> menus =
-                          items.where((e) => e.category == category).toList();
+    return SafeArea(
+      child: Material(
+        color: AppTheme.colors.bgDark,
+        child: SizedBox(
+          width: 300,
+          child: Column(
+            children: [
+              _buildLogoTitle(),
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: Column(
+                    children: [
+                      AppTheme.spacing.customY(30),
+                      ...List.generate(categories.length, (index) {
+                        String category = categories[index];
+                        List<RouteItem> menus = items.where((e) => e.category == category).toList();
 
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(left: 16),
-                            child: Text(
-                              category,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(left: 16),
+                              child: Text(
+                                category,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
-                          ),
-                          AppTheme.spacing.smallY,
-                          ...List.generate(menus.length, (index) {
-                            final item = menus[index];
-                            return buildItemMenu(
-                              context: context,
-                              sidebarProvider: sidebarProvider,
-                              initialSelectedItem: initialSelectedItem,
-                              item: item,
-                              index: index,
-                            );
-                          }),
-                          AppTheme.spacing.customY(18),
-                        ],
-                      );
-                    })
-                  ],
+                            AppTheme.spacing.smallY,
+                            ...List.generate(menus.length, (index) {
+                              final item = menus[index];
+                              return buildItemMenu(
+                                context: context,
+                                sidebarProvider: sidebarProvider,
+                                initialSelectedItem: initialSelectedItem,
+                                item: item,
+                                index: index,
+                              );
+                            }),
+                            AppTheme.spacing.customY(18),
+                          ],
+                        );
+                      })
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-  static Widget buildItemMenu({
+  Widget buildItemMenu({
     required BuildContext context,
     required SidebarProvider sidebarProvider,
     required RouteItem initialSelectedItem,
@@ -92,11 +96,11 @@ class SidebarWidget extends StatelessWidget {
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
           decoration: BoxDecoration(
-            borderRadius: AppTheme.radius.small,
+            borderRadius: AppTheme.radius.exSmall,
             color: isSelected ? Colors.white.withOpacity(.1) : null,
           ),
           child: InkWell(
-            borderRadius: AppTheme.radius.small,
+            borderRadius: AppTheme.radius.exSmall,
             onTap: () {
               if (item.subRoutes.isEmpty) {
                 sidebarProvider.selectedMainMenu = item;
@@ -119,7 +123,7 @@ class SidebarWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(item.icon, color: Colors.white),
-                  AppTheme.spacing.smallX,
+                  AppTheme.spacing.exSmallX,
                   Expanded(
                     child: Text(
                       item.name,
@@ -153,8 +157,7 @@ class SidebarWidget extends StatelessWidget {
           ),
         ),
         Builder(builder: (context) {
-          bool expandSubMenu =
-              sidebarProvider.expandSubMenu?.subRoutes == subRoutes;
+          bool expandSubMenu = sidebarProvider.expandSubMenu?.subRoutes == subRoutes;
           if (expandSubMenu) {
             return _buildSubItemMenu(context, sidebarProvider, item, subRoutes);
           }
@@ -164,7 +167,7 @@ class SidebarWidget extends StatelessWidget {
     );
   }
 
-  static Widget _buildSubItemMenu(
+  Widget _buildSubItemMenu(
     BuildContext context,
     SidebarProvider sidebarProvider,
     RouteItem mainRoute,
@@ -196,7 +199,7 @@ class SidebarWidget extends StatelessWidget {
     );
   }
 
-  static Widget buildLogoTitle() {
+  Widget _buildLogoTitle() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
       height: 60,

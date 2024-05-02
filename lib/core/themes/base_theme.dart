@@ -30,6 +30,34 @@ class BaseTheme {
         backgroundColor: AppTheme.colors.primary,
         foregroundColor: Colors.white,
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        hoverColor: Colors.white,
+        fillColor: Colors.white,
+        hintStyle: AppTheme.typography.bodyMediumHint,
+        contentPadding: AppTheme.geometry.smallX,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.8,
+            color: Colors.grey[600]!,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.8,
+            color: Colors.grey[400]!,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.8,
+            color: AppTheme.colors.primary,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
     );
   }
 }

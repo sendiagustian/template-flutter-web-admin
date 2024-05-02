@@ -17,7 +17,9 @@ dependencies:
   provider: 6.1.2
 
   #ROUTING
-  go_router: 14.0.1
+  # go_router: 14.0.1
+  # auto_route: 8.1.3
+  fluro: 2.0.5
 
   # RESPONSIVE SCREEN
   responsive_framework: 1.4.0
@@ -36,7 +38,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  auto_route_generator: 8.0.0
   flutter_launcher_icons: ^0.13.1
   flutter_lints: ^3.0.0
 

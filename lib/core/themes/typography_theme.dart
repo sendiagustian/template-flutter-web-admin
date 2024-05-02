@@ -10,7 +10,7 @@ class TypographyTheme {
 
   TextStyle get displayLarge {
     return const TextStyle(
-      fontSize: 30,
+      fontSize: 25,
       fontWeight: FontWeight.w300,
       color: Colors.black,
     );
@@ -18,7 +18,7 @@ class TypographyTheme {
 
   TextStyle get displayMedium {
     return const TextStyle(
-      fontSize: 28,
+      fontSize: 23,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
@@ -26,7 +26,7 @@ class TypographyTheme {
 
   TextStyle get displaySmall {
     return const TextStyle(
-      fontSize: 26,
+      fontSize: 21,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
@@ -34,7 +34,7 @@ class TypographyTheme {
 
   TextStyle get headlineMedium {
     return const TextStyle(
-      fontSize: 25,
+      fontSize: 20,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
@@ -42,7 +42,7 @@ class TypographyTheme {
 
   TextStyle get headlineSmall {
     return const TextStyle(
-      fontSize: 24,
+      fontSize: 19,
       fontWeight: FontWeight.w400,
       color: Colors.black,
     );
@@ -50,7 +50,7 @@ class TypographyTheme {
 
   TextStyle get titleLarge {
     return const TextStyle(
-      fontSize: 24,
+      fontSize: 19,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     );
@@ -58,7 +58,7 @@ class TypographyTheme {
 
   TextStyle get titleMedium {
     return const TextStyle(
-      fontSize: 23.5,
+      fontSize: 18.5,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     );
@@ -66,7 +66,7 @@ class TypographyTheme {
 
   TextStyle get titleSmall {
     return const TextStyle(
-      fontSize: 23,
+      fontSize: 18,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     );
@@ -74,31 +74,55 @@ class TypographyTheme {
 
   TextStyle get bodyLarge {
     return TextStyle(
-      fontSize: 23,
+      fontSize: 18,
       fontWeight: FontWeight.w400,
       color: AppTheme.colors.primaryText,
+    );
+  }
+
+  TextStyle get bodyLargeHint {
+    return TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w400,
+      color: AppTheme.colors.secondaryText,
     );
   }
 
   TextStyle get bodyMedium {
     return TextStyle(
-      fontSize: 22,
+      fontSize: 17,
       fontWeight: FontWeight.w400,
       color: AppTheme.colors.primaryText,
+    );
+  }
+
+  TextStyle get bodyMediumHint {
+    return TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w400,
+      color: AppTheme.colors.secondaryText,
     );
   }
 
   TextStyle get bodySmall {
     return TextStyle(
-      fontSize: 21,
+      fontSize: 16,
       fontWeight: FontWeight.w400,
       color: AppTheme.colors.primaryText,
     );
   }
 
+  TextStyle get bodySmallHint {
+    return TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: AppTheme.colors.secondaryText,
+    );
+  }
+
   TextStyle get labelLarge {
     return TextStyle(
-      fontSize: 20,
+      fontSize: 15,
       fontWeight: FontWeight.w500,
       color: AppTheme.colors.primaryText,
     );
@@ -106,7 +130,7 @@ class TypographyTheme {
 
   TextStyle get labelMedium {
     return TextStyle(
-      fontSize: 19,
+      fontSize: 14,
       fontWeight: FontWeight.w400,
       color: AppTheme.colors.primaryText,
     );
@@ -114,7 +138,7 @@ class TypographyTheme {
 
   TextStyle get labelSmall {
     return TextStyle(
-      fontSize: 18,
+      fontSize: 13,
       fontWeight: FontWeight.w400,
       color: AppTheme.colors.primaryText,
     );

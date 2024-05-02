@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../core/themes/app_theme.dart';
 
-class TypograpgyScreen extends StatelessWidget {
-  const TypograpgyScreen({super.key});
+class StyleTypograpgyScreen extends StatelessWidget {
+  const StyleTypograpgyScreen({super.key});
+
+  static const String route = '/style-typography';
+  static const String name = "Typography Styles";
+  static const String category = "Styles";
 
   @override
   Widget build(BuildContext context) {

@@ -1,21 +1,28 @@
 import 'package:flutter/widgets.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../routes/components/route_item.dart';
-import '../../routes/side_menu_route.dart';
+import '../route_item.dart';
+import '../side_menu_route.dart';
+// import '../../core/utils/session_util.dart';
 
 class SidebarProvider with ChangeNotifier {
-  final GoRouterState state;
-  SidebarProvider(this.state) {
+  SidebarProvider() {
     _init();
   }
 
-  Future<void> _init() async {
-    List<String>? pathSegments = state.fullPath!
-        .split('/')
-        .where((segment) => segment.isNotEmpty)
-        .toList();
+  // static final SessionUtil _sessionUtil = SessionUtil();
 
+  Future<void> _init() async {
+    // await _sessionUtil.readSession("SIDE_POSITION").then((sidebarPosition) {
+    //   if (sidebarPosition != null) {
+    //     _scrollSideControl.jumpTo(double.parse(sidebarPosition));
+    //   }
+    // });
+
+    // scrollSideControl.addListener(() async {
+    //   await _sessionUtil.writeSession("SIDE_POSITION", "${scrollSideControl.offset}");
+    // });
+
+    List<String>? pathSegments = Uri.base.path.split('/').where((segment) => segment.isNotEmpty).toList();
     if (pathSegments.isNotEmpty) {
       selectedMainMenu = SideMenuRoute.routes.where((element) {
         return element.path == "/${pathSegments[0]}";
@@ -50,16 +57,10 @@ class SidebarProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool _isDrawerOpen = false;
-  bool get isDrawerOpen => _isDrawerOpen;
-
-  void openDrawer() {
-    _isDrawerOpen = true;
-    notifyListeners();
-  }
-
-  void closeDrawer() {
-    _isDrawerOpen = false;
+  ScrollController _scrollSideControl = ScrollController();
+  ScrollController get scrollSideControl => _scrollSideControl;
+  set scrollSideControl(ScrollController value) {
+    _scrollSideControl = value;
     notifyListeners();
   }
 }

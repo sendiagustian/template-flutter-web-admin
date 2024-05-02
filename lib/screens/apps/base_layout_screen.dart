@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/providers/sidebar_provider.dart';
-import '../../core/themes/app_theme.dart';
+import '../../routes/providers/sidebar_provider.dart';
 import '../../core/utils/layout_util.dart';
 import '../../core/widgets/navbar_widget.dart';
 import '../../core/widgets/sidebar_widget.dart';
-import '../../routes/components/route_item.dart';
+import '../../routes/route_item.dart';
 import '../../routes/side_menu_route.dart';
 import '../profile/profile_screen.dart';
 
-class AppLayoutScreen extends StatelessWidget {
-  final GoRouterState state;
+class BaseLayoutScreen extends StatelessWidget {
+  final String? title;
   final Widget child;
 
-  const AppLayoutScreen({super.key, required this.state, required this.child});
+  const BaseLayoutScreen(this.child, {super.key, this.title});
 
   static final List<RouteItem> itemNavMenus = [];
   static final List<RouteItem> itemProfileMenus = [
@@ -29,28 +27,29 @@ class AppLayoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scaffoldKey = GlobalKey<ScaffoldState>();
+    final initialSelectedItem = SideMenuRoute.routes.first;
 
     return ChangeNotifierProvider(
-      create: (_) => SidebarProvider(state),
+      create: (_) => SidebarProvider(),
       child: Scaffold(
         key: scaffoldKey,
+        resizeToAvoidBottomInset: false,
         drawer: Consumer<SidebarProvider>(builder: (_, sidebarProvider, __) {
           RouteItem? selectedItem = sidebarProvider.selectedMainMenu;
-          return _drawer(
-            context: context,
+          return SidebarWidget(
+            initialSelectedItem: selectedItem ?? initialSelectedItem,
             sidebarProvider: sidebarProvider,
-            initialSelectedItem: selectedItem ?? SideMenuRoute.routes.first,
+            items: SideMenuRoute.routes,
           );
         }),
-        bottomNavigationBar: _buildNavBottom(context),
         body: Row(
           children: [
             Consumer<SidebarProvider>(builder: (_, sidebarProvider, __) {
-              bool isLargeScreen = LayoutUtil(context).isDesktop;
               RouteItem? selectedItem = sidebarProvider.selectedMainMenu;
-              if (isLargeScreen) {
+              if (isLargeScreen(context)) {
                 return SidebarWidget(
-                  initialSelectedItem: selectedItem ?? SideMenuRoute.routes.first,
+                  initialSelectedItem: selectedItem ?? initialSelectedItem,
+                  scrollController: sidebarProvider.scrollSideControl,
                   sidebarProvider: sidebarProvider,
                   items: SideMenuRoute.routes,
                 );
@@ -61,16 +60,14 @@ class AppLayoutScreen extends StatelessWidget {
               child: Column(
                 children: [
                   NavbarWidget(
-                    state: state,
+                    title: !isLargeScreen(context) ? title : null,
                     navItems: itemNavMenus,
                     profileItems: itemProfileMenus,
                     onMobileMenuTap: () {
                       scaffoldKey.currentState?.openDrawer();
                     },
                   ),
-                  Expanded(
-                    child: child,
-                  ),
+                  Expanded(child: child),
                 ],
               ),
             ),
@@ -78,37 +75,5 @@ class AppLayoutScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _drawer({
-    required BuildContext context,
-    required SidebarProvider sidebarProvider,
-    required RouteItem initialSelectedItem,
-  }) {
-    return Drawer(
-      backgroundColor: AppTheme.colors.bgDark,
-      child: SidebarWidget(
-        initialSelectedItem: initialSelectedItem,
-        sidebarProvider: sidebarProvider,
-        items: SideMenuRoute.routes,
-      ),
-    );
-  }
-
-  Widget? _buildNavBottom(BuildContext context) {
-    bool isLargeScreen = LayoutUtil(context).isDesktop;
-    if (!isLargeScreen) {
-      return BottomNavigationBar(
-        items: SideMenuRoute.routes.map((item) {
-          return BottomNavigationBarItem(
-            icon: Icon(item.icon),
-            label: item.name,
-          );
-        }).toList(),
-        currentIndex: 0,
-        onTap: (index) {},
-      );
-    }
-    return null;
   }
 }

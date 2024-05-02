@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+import '../../routes/router.dart';
 
 class NavigatorService {
   const NavigatorService();
@@ -30,6 +31,13 @@ class NavigatorService {
     required BuildContext context,
     required String route,
   }) {
-    context.go(route);
+    AppRouter.instance.navigateTo(context, route);
+  }
+
+  static void pushReplace({
+    required BuildContext context,
+    required String route,
+  }) {
+    AppRouter.instance.navigateTo(context, route, replace: true);
   }
 }
