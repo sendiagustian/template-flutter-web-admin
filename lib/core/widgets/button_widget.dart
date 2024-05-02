@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../themes/app_theme.dart';
 
@@ -27,7 +26,7 @@ class ButtonWidget {
       backgroundColor = AppTheme.colors.primary;
       overlayColor = AppTheme.colors.bgDark.withOpacity(0.15);
       decoration = BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppTheme.radius.exSmall,
       );
     } else if (type == ButtonType.secondary) {
       textColor = textColor ?? AppTheme.colors.primary;
@@ -35,7 +34,7 @@ class ButtonWidget {
       backgroundColor = Colors.white;
       overlayColor = Colors.black12;
       decoration = BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppTheme.radius.exSmall,
         border: Border.all(
           width: 1.5,
           color: AppTheme.colors.primary,
@@ -45,16 +44,16 @@ class ButtonWidget {
       backgroundColor = Colors.grey[600]!;
       overlayColor = Colors.grey[700]!;
       decoration = BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppTheme.radius.exSmall,
       );
     }
 
     assert(type == ButtonType.disable ? onPressed == null : true);
     return Material(
       color: backgroundColor,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: AppTheme.radius.exSmall,
       child: InkWell(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppTheme.radius.exSmall,
         overlayColor: MaterialStateProperty.resolveWith<Color?>(
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.pressed)) {
@@ -64,46 +63,52 @@ class ButtonWidget {
           },
         ),
         onTap: onPressed,
-        child: Container(
-          decoration: decoration,
-          height: height,
-          width: width ?? 1.sw,
-          child: Row(
-            mainAxisAlignment: alignment ?? MainAxisAlignment.center,
-            children: [
-              Builder(builder: (context) {
-                if (leftIcon != null) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Icon(
-                      leftIcon,
-                      size: 25,
-                      color: iconColor ?? Colors.white,
-                    ),
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              }),
-              Text(
-                text,
-                style: TextStyle(
-                  color: textColor ?? Colors.white,
-                  fontSize: fontsize ?? 18,
+        child: IntrinsicWidth(
+          child: Container(
+            width: width,
+            height: height,
+            decoration: decoration,
+            padding: AppTheme.geometry.custom(left: 14, right: 14),
+            child: Row(
+              mainAxisAlignment: alignment ?? MainAxisAlignment.center,
+              children: [
+                Builder(builder: (context) {
+                  if (leftIcon != null) {
+                    return Container(
+                      padding: AppTheme.geometry.smallR,
+                      child: Icon(
+                        leftIcon,
+                        size: 25,
+                        color: iconColor ?? Colors.white,
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                }),
+                Text(
+                  text,
+                  style: TextStyle(
+                    color: textColor ?? Colors.white,
+                    fontSize: fontsize ?? 18,
+                  ),
                 ),
-              ),
-              Builder(builder: (context) {
-                if (rightIcon != null) {
-                  return Icon(
-                    rightIcon,
-                    size: 25,
-                    color: iconColor ?? Colors.white,
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              }),
-            ],
+                Builder(builder: (context) {
+                  if (rightIcon != null) {
+                    return Container(
+                      padding: AppTheme.geometry.exSmallL,
+                      child: Icon(
+                        rightIcon,
+                        size: 25,
+                        color: iconColor ?? Colors.white,
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                }),
+              ],
+            ),
           ),
         ),
       ),

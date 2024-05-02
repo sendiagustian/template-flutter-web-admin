@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class GeometryTheme {
   const GeometryTheme();
 
+  EdgeInsetsGeometry customAll(double value) => EdgeInsets.all(value.r);
+
   EdgeInsetsGeometry custom({double? top, double? right, double? bottom, double? left}) {
     return EdgeInsets.only(
       top: top?.r ?? 0,
