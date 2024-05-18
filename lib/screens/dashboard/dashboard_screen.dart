@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
-
-  static const String route = "/";
+  static const String path = '/';
   static const String name = "Dashboard";
   static const IconData icon = Icons.dashboard_rounded;
 

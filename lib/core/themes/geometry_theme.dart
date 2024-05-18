@@ -1,87 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GeometryTheme {
   const GeometryTheme();
 
-  EdgeInsetsGeometry customAll(double value) => EdgeInsets.all(value.r);
+  EdgeInsetsGeometry get zero => EdgeInsets.zero;
+
+  EdgeInsetsGeometry customAll(double value) => EdgeInsets.all(value);
 
   EdgeInsetsGeometry custom({double? top, double? right, double? bottom, double? left}) {
     return EdgeInsets.only(
-      top: top?.r ?? 0,
-      right: right?.r ?? 0,
-      bottom: bottom?.r ?? 0,
-      left: left?.r ?? 0,
+      top: top ?? 0,
+      right: right ?? 0,
+      bottom: bottom ?? 0,
+      left: left ?? 0,
     );
   }
 
-  EdgeInsetsGeometry get exSmall => EdgeInsets.all(4.r);
-  EdgeInsetsGeometry get small => EdgeInsets.all(8.r);
-  EdgeInsetsGeometry get medium => EdgeInsets.all(16.r);
-  EdgeInsetsGeometry get large => EdgeInsets.all(24.r);
-  EdgeInsetsGeometry get exLarge => EdgeInsets.all(32.r);
+  EdgeInsetsGeometry get exSmall => const EdgeInsets.all(4);
+  EdgeInsetsGeometry get small => const EdgeInsets.all(8);
+  EdgeInsetsGeometry get medium => const EdgeInsets.all(16);
+  EdgeInsetsGeometry get large => const EdgeInsets.all(24);
+  EdgeInsetsGeometry get exLarge => const EdgeInsets.all(32);
 
   EdgeInsetsGeometry get exSmallX {
-    return EdgeInsets.symmetric(horizontal: 4.r);
+    return const EdgeInsets.symmetric(horizontal: 4);
   }
 
   EdgeInsetsGeometry get smallX {
-    return EdgeInsets.symmetric(horizontal: 8.r);
+    return const EdgeInsets.symmetric(horizontal: 8);
   }
 
   EdgeInsetsGeometry get mediumX {
-    return EdgeInsets.symmetric(horizontal: 16.r);
+    return const EdgeInsets.symmetric(horizontal: 16);
   }
 
   EdgeInsetsGeometry get largeX {
-    return EdgeInsets.symmetric(horizontal: 24.r);
+    return const EdgeInsets.symmetric(horizontal: 24);
   }
 
   EdgeInsetsGeometry get exLargeX {
-    return EdgeInsets.symmetric(horizontal: 32.r);
+    return const EdgeInsets.symmetric(horizontal: 32);
   }
 
   EdgeInsetsGeometry get exSmallY {
-    return EdgeInsets.symmetric(vertical: 4.r);
+    return const EdgeInsets.symmetric(vertical: 4);
   }
 
   EdgeInsetsGeometry get smallY {
-    return EdgeInsets.symmetric(vertical: 8.r);
+    return const EdgeInsets.symmetric(vertical: 8);
   }
 
   EdgeInsetsGeometry get mediumY {
-    return EdgeInsets.symmetric(vertical: 16.r);
+    return const EdgeInsets.symmetric(vertical: 16);
   }
 
   EdgeInsetsGeometry get largeY {
-    return EdgeInsets.symmetric(vertical: 24.r);
+    return const EdgeInsets.symmetric(vertical: 24);
   }
 
   EdgeInsetsGeometry get exLargeY {
-    return EdgeInsets.symmetric(vertical: 32.r);
+    return const EdgeInsets.symmetric(vertical: 32);
   }
 
-  EdgeInsetsGeometry get exSmallT => EdgeInsets.only(top: 4.r);
-  EdgeInsetsGeometry get smallT => EdgeInsets.only(top: 8.r);
-  EdgeInsetsGeometry get mediumT => EdgeInsets.only(top: 16.r);
-  EdgeInsetsGeometry get largeT => EdgeInsets.only(top: 24.r);
-  EdgeInsetsGeometry get exLargeT => EdgeInsets.only(top: 32.r);
+  EdgeInsetsGeometry get exSmallT => const EdgeInsets.only(top: 4);
+  EdgeInsetsGeometry get smallT => const EdgeInsets.only(top: 8);
+  EdgeInsetsGeometry get mediumT => const EdgeInsets.only(top: 16);
+  EdgeInsetsGeometry get largeT => const EdgeInsets.only(top: 24);
+  EdgeInsetsGeometry get exLargeT => const EdgeInsets.only(top: 32);
 
-  EdgeInsetsGeometry get exSmallR => EdgeInsets.only(right: 4.r);
-  EdgeInsetsGeometry get smallR => EdgeInsets.only(right: 8.r);
-  EdgeInsetsGeometry get mediumR => EdgeInsets.only(right: 16.r);
-  EdgeInsetsGeometry get largeR => EdgeInsets.only(right: 24.r);
-  EdgeInsetsGeometry get exLargeR => EdgeInsets.only(right: 32.r);
+  EdgeInsetsGeometry get exSmallR => const EdgeInsets.only(right: 4);
+  EdgeInsetsGeometry get smallR => const EdgeInsets.only(right: 8);
+  EdgeInsetsGeometry get mediumR => const EdgeInsets.only(right: 16);
+  EdgeInsetsGeometry get largeR => const EdgeInsets.only(right: 24);
+  EdgeInsetsGeometry get exLargeR => const EdgeInsets.only(right: 32);
 
-  EdgeInsetsGeometry get exSmallB => EdgeInsets.only(bottom: 4.r);
-  EdgeInsetsGeometry get smallB => EdgeInsets.only(bottom: 8.r);
-  EdgeInsetsGeometry get mediumB => EdgeInsets.only(bottom: 16.r);
-  EdgeInsetsGeometry get largeB => EdgeInsets.only(bottom: 24.r);
-  EdgeInsetsGeometry get exLargeB => EdgeInsets.only(bottom: 32.r);
+  EdgeInsetsGeometry get exSmallB => const EdgeInsets.only(bottom: 4);
+  EdgeInsetsGeometry get smallB => const EdgeInsets.only(bottom: 8);
+  EdgeInsetsGeometry get mediumB => const EdgeInsets.only(bottom: 16);
+  EdgeInsetsGeometry get largeB => const EdgeInsets.only(bottom: 24);
+  EdgeInsetsGeometry get exLargeB => const EdgeInsets.only(bottom: 32);
 
-  EdgeInsetsGeometry get exSmallL => EdgeInsets.only(left: 4.r);
-  EdgeInsetsGeometry get smallL => EdgeInsets.only(left: 8.r);
-  EdgeInsetsGeometry get mediumL => EdgeInsets.only(left: 16.r);
-  EdgeInsetsGeometry get largeL => EdgeInsets.only(left: 24.r);
-  EdgeInsetsGeometry get exLargeL => EdgeInsets.only(left: 32.r);
+  EdgeInsetsGeometry get exSmallL => const EdgeInsets.only(left: 4);
+  EdgeInsetsGeometry get smallL => const EdgeInsets.only(left: 8);
+  EdgeInsetsGeometry get mediumL => const EdgeInsets.only(left: 16);
+  EdgeInsetsGeometry get largeL => const EdgeInsets.only(left: 24);
+  EdgeInsetsGeometry get exLargeL => const EdgeInsets.only(left: 32);
 }

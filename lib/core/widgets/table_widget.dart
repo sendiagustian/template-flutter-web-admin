@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 
+import '../enums/type_enums.dart';
 import '../extensions/color_extension.dart';
 import '../themes/app_theme.dart';
-import '../utils/layout_util.dart';
+import '../utils/app_util.dart';
+import 'button_widget.dart';
 import 'card_widget.dart';
+import 'hovers/table_row_hover_widget.dart';
 import 'input_widget.dart';
 import 'pagination_widget.dart';
 
 class TableWidget {
   static Widget headColumn({
     required List<ColumnItem> columns,
-    Color? color = const Color(0xFFf7f9fc),
+    Color? color,
     double maxHeight = 100.0,
   }) {
     return Container(
-      padding: AppTheme.geometry.small,
+      padding: AppTheme.geometry.medium,
       constraints: BoxConstraints(maxHeight: maxHeight),
       decoration: BoxDecoration(
-        color: color,
+        color: color ?? const Color(0xFFf7f9fc),
         borderRadius: AppTheme.radius.custom(topLeft: 4.0, topRight: 4.0),
       ),
       child: Row(
@@ -46,72 +49,15 @@ class TableWidget {
     );
   }
 
-  static Widget rowData({
-    required List<ColumnItem> columns,
-    required Map<String, dynamic> data,
-    required bool isFirstIndex,
-    required bool isLastIndex,
-    Color? color,
-    double maxHeight = 80.0,
-    double maxWidth = double.infinity,
-  }) {
-    return Container(
-      padding: AppTheme.geometry.small,
-      constraints: BoxConstraints(maxHeight: maxHeight, maxWidth: maxWidth),
-      decoration: BoxDecoration(
-        color: color ?? Colors.white,
-        borderRadius: AppTheme.radius.custom(bottomLeft: isLastIndex ? 4.0 : 0.0, bottomRight: isLastIndex ? 4.0 : 0.0),
-        border: Border(
-          bottom: isLastIndex ? BorderSide.none : BorderSide(color: Colors.grey[200]!, width: 1.0),
-        ),
-      ),
-      child: Row(
-        children: [
-          ...List.generate(
-            columns.length,
-            (index) {
-              ColumnItem column = columns[index];
-              dynamic value = data[column.title];
-              if (column.isVisible) {
-                return Expanded(
-                  child: Container(
-                    padding: AppTheme.geometry.exSmall,
-                    child: Text(
-                      data[column.title].toString(),
-                      textAlign: column.textAlign,
-                      style: AppTheme.typography.bodySmall,
-                    ),
-                  ),
-                );
-              } else {
-                if (value is List<Widget>) {
-                  return Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: value,
-                    ),
-                  );
-                } else if (value is Widget) {
-                  return Expanded(
-                    child: value,
-                  );
-                } else {
-                  return const Expanded(child: SizedBox());
-                }
-              }
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  static Widget card({
+  static Widget card<T>({
     required BuildContext context,
     required String title,
     required List<ColumnItem> columns,
-    required List<Map<String, dynamic>> data,
-    double maxLargeScreenWidth = 1500,
+    required List<RowItem> data,
+    List<BoxShadow>? boxShadow,
+    String? addText,
+    void Function()? onTapAdd,
+    double maxLargeScreenWidth = 1505,
     double maxMediumScreenWidth = 1000,
     double maxSmallScreenWidth = 800,
     double maxHeight = double.infinity,
@@ -134,25 +80,54 @@ class TableWidget {
       constraints: BoxConstraints(maxHeight: maxHeight, maxWidth: double.infinity),
       child: CardWidget.basic(
         title: title,
+        boxShadow: boxShadow,
         withSeparator: false,
         children: [
-          Builder(builder: (context) {
-            if (searchProps != null) {
-              return Container(
-                margin: AppTheme.geometry.mediumB,
-                width: isSmallScreen(context) ? double.infinity : 400,
-                child: InputWidget.formFieldInput(
-                  context: context,
-                  controller: searchProps.controller,
-                  hintText: searchProps.hintText,
-                  prefixIcon: const Icon(Icons.search),
-                  onChanged: searchProps.onChanged,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Builder(builder: (context) {
+                if (searchProps != null) {
+                  if (isLargeScreen(context)) {
+                    return Container(
+                      margin: AppTheme.geometry.mediumB,
+                      width: isSmallScreen(context) ? double.infinity : 400,
+                      child: InputWidget.formFieldInput(
+                        context: context,
+                        controller: searchProps.controller,
+                        hintText: searchProps.hintText,
+                        prefixIcon: const Icon(Icons.search),
+                        onChanged: searchProps.onChanged,
+                      ),
+                    );
+                  } else {
+                    return Expanded(
+                      child: Container(
+                        margin: AppTheme.geometry.mediumB,
+                        width: isSmallScreen(context) ? double.infinity : 400,
+                        child: InputWidget.formFieldInput(
+                          context: context,
+                          controller: searchProps.controller,
+                          hintText: searchProps.hintText,
+                          prefixIcon: const Icon(Icons.search),
+                          onChanged: searchProps.onChanged,
+                        ),
+                      ),
+                    );
+                  }
+                } else {
+                  return const SizedBox();
+                }
+              }),
+              isLargeScreen(context) ? const Expanded(child: SizedBox()) : const SizedBox(width: 16),
+              if (addText != null)
+                Container(
+                  margin: AppTheme.geometry.mediumB,
+                  child: ButtonWidget.build(text: addText, type: ButtonType.primary, onPressed: onTapAdd),
                 ),
-              );
-            } else {
-              return const SizedBox();
-            }
-          }),
+            ],
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
@@ -165,11 +140,12 @@ class TableWidget {
                     color: columnBackgroundColor,
                   ),
                   ...List.generate(data.length, (index) {
-                    Map<String, dynamic> row = data[index];
-                    return rowData(
+                    RowItem row = data[index];
+                    return TableRowHoverWidget(
                       columns: columns,
                       data: row,
-                      isFirstIndex: false,
+                      hoverColor: Colors.grey[100]!,
+                      isFirstIndex: index == 0,
                       isLastIndex: (index == (data.length - 1)),
                     );
                   }),
@@ -177,6 +153,7 @@ class TableWidget {
               ),
             ),
           ),
+          AppTheme.spacing.smallY,
           Builder(builder: (context) {
             if (paginationProps != null) {
               int threshold;
@@ -214,13 +191,17 @@ class TableWidget {
     );
   }
 
-  static Widget basic({
+  static Widget basic<T>({
     required BuildContext context,
     required String title,
     required List<ColumnItem> columns,
-    required List<Map<String, dynamic>> data,
+    required List<RowItem> data,
+    List<BoxShadow>? boxShadow,
+    String? addText,
+    void Function()? onTapAdd,
+    void Function()? onTap,
     Color? columnBackgroundColor,
-    double maxLargeScreenWidth = 1500,
+    double maxLargeScreenWidth = 1537,
     double maxMediumScreenWidth = 1000,
     double maxSmallScreenWidth = 800,
     double maxHeight = double.infinity,
@@ -239,6 +220,7 @@ class TableWidget {
 
     return Container(
       constraints: BoxConstraints(maxHeight: maxHeight, maxWidth: double.infinity),
+      decoration: BoxDecoration(boxShadow: boxShadow ?? AppTheme.boxShadows.basic),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -247,23 +229,51 @@ class TableWidget {
             style: AppTheme.typography.titleMedium,
           ),
           AppTheme.spacing.mediumY,
-          Builder(builder: (context) {
-            if (searchProps != null) {
-              return Container(
-                margin: AppTheme.geometry.mediumB,
-                width: isSmallScreen(context) ? double.infinity : 400,
-                child: InputWidget.formFieldInput(
-                  context: context,
-                  controller: searchProps.controller,
-                  hintText: searchProps.hintText,
-                  prefixIcon: const Icon(Icons.search),
-                  onChanged: searchProps.onChanged,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Builder(builder: (context) {
+                if (searchProps != null) {
+                  if (isLargeScreen(context)) {
+                    return Container(
+                      margin: AppTheme.geometry.mediumB,
+                      width: isSmallScreen(context) ? double.infinity : 400,
+                      child: InputWidget.formFieldInput(
+                        context: context,
+                        controller: searchProps.controller,
+                        hintText: searchProps.hintText,
+                        prefixIcon: const Icon(Icons.search),
+                        onChanged: searchProps.onChanged,
+                      ),
+                    );
+                  } else {
+                    return Expanded(
+                      child: Container(
+                        margin: AppTheme.geometry.mediumB,
+                        width: isSmallScreen(context) ? double.infinity : 400,
+                        child: InputWidget.formFieldInput(
+                          context: context,
+                          controller: searchProps.controller,
+                          hintText: searchProps.hintText,
+                          prefixIcon: const Icon(Icons.search),
+                          onChanged: searchProps.onChanged,
+                        ),
+                      ),
+                    );
+                  }
+                } else {
+                  return const SizedBox();
+                }
+              }),
+              isLargeScreen(context) ? const Expanded(child: SizedBox()) : const SizedBox(width: 16),
+              if (addText != null)
+                Container(
+                  margin: AppTheme.geometry.mediumB,
+                  child: ButtonWidget.build(text: addText, type: ButtonType.primary, onPressed: onTapAdd),
                 ),
-              );
-            } else {
-              return const SizedBox();
-            }
-          }),
+            ],
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
@@ -276,12 +286,12 @@ class TableWidget {
                     maxHeight: columnHeight,
                   ),
                   ...List.generate(data.length, (index) {
-                    Map<String, dynamic> row = data[index];
-                    return rowData(
+                    RowItem row = data[index];
+                    return TableRowHoverWidget(
                       data: row,
                       columns: columns,
-                      color: Colors.white,
-                      isFirstIndex: false,
+                      hoverColor: Colors.grey[100]!,
+                      isFirstIndex: index == 0,
                       isLastIndex: (index == (data.length - 1)),
                     );
                   }),
@@ -330,5 +340,15 @@ class ColumnItem {
     required this.title,
     this.isVisible = true,
     this.textAlign = TextAlign.left,
+  });
+}
+
+class RowItem {
+  final Map<String, dynamic> rowData;
+  final void Function()? onTap;
+
+  RowItem({
+    required this.rowData,
+    this.onTap,
   });
 }

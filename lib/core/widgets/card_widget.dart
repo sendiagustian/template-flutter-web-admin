@@ -3,15 +3,6 @@ import 'package:flutter/material.dart';
 import '../themes/app_theme.dart';
 
 class CardWidget {
-  static final List<BoxShadow> _cardShadows = [
-    const BoxShadow(
-      color: Color(0x111C1B76),
-      blurRadius: 26.96,
-      offset: Offset(0, 3.68),
-      spreadRadius: 0,
-    ),
-  ];
-
   static Widget _separator({required bool isExpansion, bool isDashed = false}) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -44,6 +35,8 @@ class CardWidget {
   static Widget basic({
     required String title,
     required List<Widget> children,
+    List<BoxShadow>? boxShadow,
+    TextAlign titleAlignment = TextAlign.left,
     bool withSeparator = true,
     ImageProvider<Object>? placeholder,
     ImageProvider<Object>? image,
@@ -57,7 +50,7 @@ class CardWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: AppTheme.radius.exSmall,
-        boxShadow: _cardShadows,
+        boxShadow: boxShadow ?? AppTheme.boxShadows.basic,
       ),
       child: Column(
         crossAxisAlignment: crossAxisAlignment,
@@ -73,11 +66,22 @@ class CardWidget {
                 height: heightImage,
               ),
             ),
-          Padding(
+          Container(
+            alignment: titleAlignment == TextAlign.center
+                ? Alignment.center
+                : titleAlignment == TextAlign.right
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
             padding: noImage
                 ? AppTheme.geometry.medium
                 : AppTheme.geometry.custom(left: 16, top: 16, right: 16, bottom: withSeparator ? 12 : 0),
-            child: Text(title, style: AppTheme.typography.titleMedium),
+            child: Builder(builder: (context) {
+              if (titleAlignment == TextAlign.center) {
+                return Center(child: Text(title, textAlign: titleAlignment, style: AppTheme.typography.titleMedium));
+              } else {
+                return Text(title, textAlign: titleAlignment, style: AppTheme.typography.titleMedium);
+              }
+            }),
           ),
           if (noImage && withSeparator) _separator(isExpansion: false),
           Container(
@@ -97,13 +101,15 @@ class CardWidget {
   static Widget expansion({
     required String title,
     required List<Widget> children,
+    List<BoxShadow>? boxShadow,
+    TextAlign titleAlignment = TextAlign.left,
     bool initiallyExpanded = false,
     CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.start,
   }) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: _cardShadows,
+        boxShadow: boxShadow ?? AppTheme.boxShadows.basic,
         borderRadius: AppTheme.radius.exSmall,
       ),
       child: ExpansionTile(
@@ -112,7 +118,7 @@ class CardWidget {
         expandedAlignment: Alignment.centerLeft,
         expandedCrossAxisAlignment: crossAxisAlignment,
         tilePadding: AppTheme.geometry.custom(left: 16, right: 16, top: 8, bottom: 8),
-        title: Text(title, style: AppTheme.typography.titleMedium),
+        title: Text(title, textAlign: titleAlignment, style: AppTheme.typography.titleMedium),
         collapsedShape: RoundedRectangleBorder(
           borderRadius: AppTheme.radius.exSmall,
         ),

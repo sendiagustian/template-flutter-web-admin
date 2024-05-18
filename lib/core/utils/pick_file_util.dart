@@ -1,6 +1,21 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 
 class PickFileUtil {
+  File bytesToFile(PlatformFile platformFile) {
+    return File.fromRawPath(platformFile.bytes!);
+  }
+
+  String getFileType(PlatformFile platformFile) {
+    int index = platformFile.name.split(".").length - 1;
+    return platformFile.name.split(".")[index];
+  }
+
+  String getFileName(PlatformFile platformFile) {
+    return platformFile.name.split(".")[0].replaceAll(" ", "_");
+  }
+
   Future<PlatformFile?> pickSingleFile({
     required FileType type,
     List<String>? customExtensionFile,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../core/services/navigator_service.dart';
+import '../../routes/services/navigator_service.dart';
 
 class RegisterScreen extends StatelessWidget {
+  static const String path = "/register";
+  static const String name = "Register";
+
   const RegisterScreen({super.key});
 
   @override

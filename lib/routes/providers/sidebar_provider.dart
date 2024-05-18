@@ -1,19 +1,21 @@
 import 'package:flutter/widgets.dart';
 
-import '../route_item.dart';
-import '../side_menu_route.dart';
+import '../items/route_item.dart';
+import '../route_side_menu.dart';
 // import '../../core/utils/session_util.dart';
 
 class SidebarProvider with ChangeNotifier {
-  SidebarProvider() {
+  final BuildContext context;
+  SidebarProvider(this.context) {
     _init();
   }
 
   // static final SessionUtil _sessionUtil = SessionUtil();
 
   Future<void> _init() async {
+    String nowPath = ModalRoute.of(context)?.settings.name ?? "/";
     // await _sessionUtil.readSession("SIDE_POSITION").then((sidebarPosition) {
-    //   if (sidebarPosition != null) {
+    //   if (sidebarPosition != null && context.mounted) {
     //     _scrollSideControl.jumpTo(double.parse(sidebarPosition));
     //   }
     // });
@@ -22,16 +24,16 @@ class SidebarProvider with ChangeNotifier {
     //   await _sessionUtil.writeSession("SIDE_POSITION", "${scrollSideControl.offset}");
     // });
 
-    List<String>? pathSegments = Uri.base.path.split('/').where((segment) => segment.isNotEmpty).toList();
+    List<String>? pathSegments = nowPath.split('/').where((segment) => segment.isNotEmpty).toList();
     if (pathSegments.isNotEmpty) {
-      selectedMainMenu = SideMenuRoute.routes.where((element) {
+      selectedMainMenu = routesSideMenu.where((element) {
         return element.path == "/${pathSegments[0]}";
       }).first;
     }
     if (pathSegments.length > 1) {
       expandSubMenu = selectedMainMenu;
       selectedSubMenu = selectedMainMenu?.subRoutes.where((element) {
-        return element.path == "/${pathSegments[1]}";
+        return element.path == "/${pathSegments[0]}/${pathSegments[1]}";
       }).first;
     }
   }
@@ -61,6 +63,13 @@ class SidebarProvider with ChangeNotifier {
   ScrollController get scrollSideControl => _scrollSideControl;
   set scrollSideControl(ScrollController value) {
     _scrollSideControl = value;
+    notifyListeners();
+  }
+
+  bool _showMobileMenu = false;
+  bool get showMobileMenu => _showMobileMenu;
+  set showMobileMenu(bool value) {
+    _showMobileMenu = value;
     notifyListeners();
   }
 }

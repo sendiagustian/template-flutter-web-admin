@@ -147,14 +147,10 @@ extension StringExtension on String {
 
     if (date is String) {
       DateTime parsedDate = DateTime.parse(date);
-      String dateFormated = DateFormat("dd MMMM yyyy", "id").format(
-        parsedDate,
-      );
+      String dateFormated = DateFormat("dd MMMM yyyy", "id").format(parsedDate);
       fullDate = dateFormated;
     } else if (date is DateTime) {
-      String dateFormated = DateFormat("dd MMMM yyyy", "id").format(
-        date,
-      );
+      String dateFormated = DateFormat("dd MMMM yyyy", "id").format(date);
       fullDate = dateFormated;
     }
 

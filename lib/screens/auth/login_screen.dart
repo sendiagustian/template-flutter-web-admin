@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/services/navigator_service.dart';
+import '../../core/enums/type_enums.dart';
+import '../../core/utils/validator_text_field_util.dart';
+import '../../routes/services/navigator_service.dart';
 import '../../core/themes/app_theme.dart';
-import '../../core/utils/layout_util.dart';
+import '../../core/utils/app_util.dart';
 import '../../core/widgets/button_widget.dart';
 import '../../core/widgets/input_widget.dart';
 import '../dashboard/dashboard_screen.dart';
-import 'providers/auth_provider.dart';
+import 'providers/auth_app_provider.dart';
+import 'services/auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const String path = "/login";
+  static const String name = "Login";
+
   const LoginScreen({super.key});
+
+  static final AuthService _authService = AuthService();
+  static final ValidatorTextFieldUtil _validatorField = ValidatorTextFieldUtil();
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> formLogin = GlobalKey<FormState>();
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -42,11 +52,13 @@ class LoginScreen extends StatelessWidget {
                             _buildLogo(context),
                           ],
                         ),
-                        AppTheme.spacing.customX(4.5),
+                        AppTheme.spacing.customX(24),
                         Container(width: 1, color: Colors.grey[350]),
                       ],
                     ),
-                    _buildForm(context),
+                    Consumer<AuthAppProvider>(builder: (_, auth, __) {
+                      return _buildForm(context, formLogin);
+                    }),
                   ],
                 );
               } else {
@@ -62,7 +74,9 @@ class LoginScreen extends StatelessWidget {
                       AppTheme.spacing.mediumY,
                       _buildLogo(context),
                       AppTheme.spacing.mediumY,
-                      _buildForm(context),
+                      Consumer<AuthAppProvider>(builder: (_, auth, __) {
+                        return _buildForm(context, formLogin);
+                      }),
                     ],
                   ),
                 );
@@ -81,40 +95,84 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildForm(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  Widget _buildForm(BuildContext context, GlobalKey<FormState> formKey) {
     return Form(
       key: formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          InputWidget.formFieldInput(
-            context: context,
-            title: "Phone Number",
-            hintText: "Phone Number",
-            prefixIcon: const Icon(Icons.phone_outlined),
-          ),
+          Consumer<AuthAppProvider>(builder: (_, auth, __) {
+            return Row(
+              crossAxisAlignment: auth.formValid ? CrossAxisAlignment.end : CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: InputWidget.formFieldInput(
+                    context: context,
+                    title: "Phone Number",
+                    hintText: "Phone Number",
+                    enabled: auth.verifyId == null ? true : false,
+                    controller: auth.phoneController,
+                    prefixIcon: const Icon(Icons.phone_outlined),
+                    validator: _validatorField.validatePhoneNumber,
+                  ),
+                ),
+                AppTheme.spacing.exSmallX,
+                ButtonWidget.build(
+                  text: "Verify",
+                  height: 48,
+                  type: auth.verifyId == null ? ButtonType.primary : ButtonType.disable,
+                  onPressed: _onVerifyPhone(auth, formKey, context),
+                ),
+              ],
+            );
+          }),
           AppTheme.spacing.mediumY,
-          InputWidget.formFieldInput(
-            context: context,
-            title: "Password",
-            hintText: "Password",
-            prefixIcon: const Icon(Icons.lock_outline_rounded),
-          ),
+          Consumer<AuthAppProvider>(builder: (_, auth, __) {
+            return InputWidget.formFieldInput(
+              context: context,
+              enabled: auth.verifyId != null ? true : false,
+              title: "OTP Code",
+              hintText: "OTP Code",
+              controller: auth.codeOTPController,
+              prefixIcon: const Icon(Icons.vpn_key),
+            );
+          }),
           AppTheme.spacing.mediumY,
-          Consumer<AuthProvider>(builder: (_, authProvider, __) {
-            return ButtonWidget.basic(
+          Consumer<AuthAppProvider>(builder: (_, auth, __) {
+            return ButtonWidget.build(
               text: "Submit",
-              type: ButtonType.primary,
-              onPressed: () {
-                authProvider.isLogin = true;
-                NavigatorService.pushReplace(context: context, route: DashboardScreen.route);
-              },
+              type: auth.verifyId != null ? ButtonType.primary : ButtonType.disable,
+              width: AppTheme.double.screenW(context),
+              onPressed: _onSubmit(auth, context),
             );
           }),
         ],
       ),
     );
+  }
+
+  void Function()? _onVerifyPhone(AuthAppProvider auth, GlobalKey<FormState> formKey, BuildContext context) {
+    if (auth.verifyId == null) {
+      return () {
+        _authService.verifyPhoneNumber(context: context, auth: auth, form: formKey);
+      };
+    } else {
+      return null;
+    }
+  }
+
+  void Function()? _onSubmit(AuthAppProvider auth, BuildContext context) {
+    if (auth.verifyId != null) {
+      return () {
+        _authService.verifyCodeSms(context: context, auth: auth, verificationId: auth.verifyId!).then((value) {
+          if (value) {
+            NavigatorService.pushAndRemoveUntil(context: context, route: DashboardScreen.path);
+          }
+        });
+      };
+    } else {
+      return null;
+    }
   }
 }

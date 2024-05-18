@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import '../extensions/string_extension.dart';
 
@@ -43,4 +44,16 @@ void copyToClipboard(
       );
     }
   });
+}
+
+bool isLargeScreen(BuildContext context) {
+  return ResponsiveBreakpoints.of(context).isDesktop;
+}
+
+bool isMediumScreen(BuildContext context) {
+  return ResponsiveBreakpoints.of(context).isTablet;
+}
+
+bool isSmallScreen(BuildContext context) {
+  return ResponsiveBreakpoints.of(context).isMobile;
 }

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../screens/auth/providers/auth_provider.dart';
+import '../../screens/auth/providers/auth_app_provider.dart';
 import '../router.dart';
 
 class RouterProvider with ChangeNotifier {
-  final AuthProvider authProvider;
+  final AuthAppProvider auth;
 
-  RouterProvider(this.authProvider) {
+  RouterProvider(this.auth) {
     _init();
   }
 
   Future<void> _init() async {
-    AppRouter(authProvider).defineRoutes(AppRouter.instance);
+    AppRouter(auth).defineRoutes(AppRouter.instance);
   }
 }

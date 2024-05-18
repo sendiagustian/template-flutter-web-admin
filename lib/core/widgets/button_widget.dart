@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../enums/type_enums.dart';
 import '../themes/app_theme.dart';
 
-enum ButtonType { primary, secondary, disable }
-
 class ButtonWidget {
-  static Widget basic({
+  static Widget build({
     required String text,
     required ButtonType type,
     Color? textColor,
@@ -41,7 +40,7 @@ class ButtonWidget {
         ),
       );
     } else {
-      backgroundColor = Colors.grey[600]!;
+      backgroundColor = Colors.grey[400]!;
       overlayColor = Colors.grey[700]!;
       decoration = BoxDecoration(
         borderRadius: AppTheme.radius.exSmall,
@@ -54,9 +53,9 @@ class ButtonWidget {
       borderRadius: AppTheme.radius.exSmall,
       child: InkWell(
         borderRadius: AppTheme.radius.exSmall,
-        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.pressed)) {
+        overlayColor: WidgetStateProperty.resolveWith<Color?>(
+          (Set<WidgetState> states) {
+            if (states.contains(WidgetState.pressed)) {
               return overlayColor;
             }
             return null;

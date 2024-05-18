@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app_theme.dart';
 
@@ -11,20 +10,23 @@ class BaseTheme {
       textTheme: AppTheme.typography.typography,
       fontFamily: AppTheme.typography.fontPrimary,
       scaffoldBackgroundColor: AppTheme.colors.bgLight,
+      buttonTheme: const ButtonThemeData(
+        alignedDropdown: true,
+      ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppTheme.colors.primary,
         primary: AppTheme.colors.primary,
         secondary: AppTheme.colors.secondary,
       ),
       appBarTheme: AppBarTheme(
-        toolbarHeight: 45.h,
+        toolbarHeight: 70,
         elevation: 5.0,
         scrolledUnderElevation: 5.0,
         surfaceTintColor: Colors.white,
         backgroundColor: Colors.white,
         foregroundColor: AppTheme.colors.primaryText,
         titleTextStyle: TextStyle(color: AppTheme.colors.primaryText),
-        iconTheme: IconThemeData(color: AppTheme.colors.primaryText),
+        iconTheme: IconThemeData(color: AppTheme.colors.primaryText, grade: 2),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: AppTheme.colors.primary,
@@ -41,21 +43,21 @@ class BaseTheme {
             width: 0.8,
             color: Colors.grey[600]!,
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: AppTheme.radius.exSmall,
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 0.8,
             color: Colors.grey[400]!,
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: AppTheme.radius.exSmall,
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 0.8,
             color: AppTheme.colors.primary,
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: AppTheme.radius.exSmall,
         ),
       ),
     );
