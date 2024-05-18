@@ -1,6 +1,6 @@
 {
-    "name": "Admin Tong Nyampah",
-    "short_name": "Admin Tong Nyampah",
+    "name": "Admin Template",
+    "short_name": "Admin Template",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffffff",

@@ -24,7 +24,6 @@ dependencies:
 
   # RESPONSIVE SCREEN
   responsive_framework: 1.4.0
-  # flutter_screenutil: 5.9.0
 
   #UTILITIES
   url_strategy: 0.2.0 # URL Strategy

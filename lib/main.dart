@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
               builder: (_, routerProvider, __) {
                 return MaterialApp(
                   theme: theme.baseTheme,
-                  title: 'Admin Tong Nyampah',
+                  title: 'Admin Template',
                   debugShowCheckedModeBanner: false,
                   initialRoute: DashboardScreen.path,
                   scrollBehavior: WebHorizontalScrollBehavior(),
