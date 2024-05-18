@@ -1,4 +1,4 @@
-# Admin Temolate
+# Admin Template
 
 Website admin template build with flutter.
 
