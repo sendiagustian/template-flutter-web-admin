@@ -233,7 +233,7 @@ class SidebarWidget extends StatelessWidget {
             ),
             const Expanded(
               child: Text(
-                "Tong Nyampah",
+                "Widgets Template",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,

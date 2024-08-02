@@ -1,11 +1,11 @@
 {
-    "name": "Admin Template",
-    "short_name": "Admin Template",
+    "name": "Widgets Template",
+    "short_name": "Widgets Template",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
-    "description": "Website admin untuk Aplikasi Tong nyampah.",
+    "description": "Website admin Template Widgets.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
