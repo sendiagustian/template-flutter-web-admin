@@ -36,11 +36,10 @@ class WidgetBadgeScreen extends StatelessWidget {
                     spacing: 16,
                     children: [
                       Consumer<BadgeState>(builder: (_, state, __) {
-                        return BadgeWidget.build(
+                        return BadgeWidget.basic(
                           context: context,
                           currentMenu: state.currentMenu,
                           menus: ["Semua", "Pengajuan", "Proses", "Selesai"],
-                          textStyle: AppTheme.typography.titleLarge,
                           onTap: (index) {
                             state.currentMenu = index;
                           },

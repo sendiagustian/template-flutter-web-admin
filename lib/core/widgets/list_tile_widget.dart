@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../themes/app_theme.dart';
 
 class ListTileWidget {
-  static Widget build({
+  static Widget basic({
     required BuildContext context,
     required List<Widget> content,
     Widget? leading,
@@ -11,20 +11,21 @@ class ListTileWidget {
     bool withColorLeading = false,
     String? title,
     Function()? onTapDetail,
+    List<BoxShadow>? boxShadow,
     double? height,
     int? maxLineTitle,
   }) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: AppTheme.radius.medium,
-        boxShadow: AppTheme.boxShadows.basic,
+        borderRadius: AppTheme.radius.exSmall,
+        boxShadow: boxShadow ?? AppTheme.boxShadows.basic,
       ),
       child: Material(
-        borderRadius: AppTheme.radius.medium,
+        borderRadius: AppTheme.radius.exSmall,
         color: Colors.white,
         elevation: 0,
         child: InkWell(
-          borderRadius: AppTheme.radius.medium,
+          borderRadius: AppTheme.radius.exSmall,
           onTap: onTapDetail,
           overlayColor: WidgetStateProperty.resolveWith<Color?>(
             (Set<WidgetState> states) {

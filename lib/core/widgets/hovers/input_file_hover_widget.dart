@@ -54,7 +54,7 @@ class _InputFileHoverWidgetState extends State<InputFileHoverWidget> {
                 ),
                 child: Center(
                   child: Text(
-                    "Choose File",
+                    'Choose File',
                     style: AppTheme.typography.labelLarge,
                   ),
                 ),
@@ -63,7 +63,7 @@ class _InputFileHoverWidgetState extends State<InputFileHoverWidget> {
                 child: Container(
                   padding: AppTheme.geometry.smallX,
                   child: Text(
-                    widget.file?.name != null ? _fileUtil.getFileName(widget.file!) : "No file chosen",
+                    widget.file?.name != null ? _fileUtil.getFileName(widget.file!) : 'No file chosen',
                     style: AppTheme.typography.bodyMedium,
                   ),
                 ),

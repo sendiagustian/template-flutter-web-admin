@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../enums/type_enums.dart';
+import '../constants/enums/type_enums.dart';
 import '../themes/app_theme.dart';
 
 class ButtonWidget {
-  static Widget build({
+  static Widget ractangle({
     required String text,
     required ButtonType type,
     Color? textColor,
     Color? iconColor,
+    Color? backgroundColor,
     double? width,
     double height = 50,
     IconData? leftIcon,
@@ -18,19 +19,26 @@ class ButtonWidget {
     MainAxisAlignment? alignment,
   }) {
     Decoration? decoration;
-    Color backgroundColor;
+    Color buttonColor;
     Color overlayColor;
 
     if (type == ButtonType.primary) {
-      backgroundColor = AppTheme.colors.primary;
+      buttonColor = backgroundColor ?? AppTheme.colors.primary;
       overlayColor = AppTheme.colors.bgDark.withOpacity(0.15);
       decoration = BoxDecoration(
         borderRadius: AppTheme.radius.exSmall,
       );
+    } else if (type == ButtonType.gradient) {
+      buttonColor = Colors.transparent;
+      overlayColor = AppTheme.colors.bgDark.withOpacity(0.15);
+      decoration = BoxDecoration(
+        borderRadius: AppTheme.radius.exSmall,
+        gradient: AppTheme.colors.gradientPrimary,
+      );
     } else if (type == ButtonType.secondary) {
       textColor = textColor ?? AppTheme.colors.primary;
       iconColor = iconColor ?? AppTheme.colors.primary;
-      backgroundColor = Colors.white;
+      buttonColor = backgroundColor ?? Colors.white;
       overlayColor = Colors.black12;
       decoration = BoxDecoration(
         borderRadius: AppTheme.radius.exSmall,
@@ -40,7 +48,7 @@ class ButtonWidget {
         ),
       );
     } else {
-      backgroundColor = Colors.grey[400]!;
+      buttonColor = backgroundColor ?? Colors.grey[400]!;
       overlayColor = Colors.grey[700]!;
       decoration = BoxDecoration(
         borderRadius: AppTheme.radius.exSmall,
@@ -49,7 +57,7 @@ class ButtonWidget {
 
     assert(type == ButtonType.disable ? onPressed == null : true);
     return Material(
-      color: backgroundColor,
+      color: buttonColor,
       borderRadius: AppTheme.radius.exSmall,
       child: InkWell(
         borderRadius: AppTheme.radius.exSmall,

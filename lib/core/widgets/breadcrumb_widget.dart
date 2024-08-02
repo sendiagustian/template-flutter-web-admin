@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import '../extensions/string_extension.dart';
 import '../themes/app_theme.dart';
 
-class BreadcrumbsWidget extends StatelessWidget {
-  final String? title;
-
-  const BreadcrumbsWidget({super.key, this.title});
-  List<String> getSegments() {
+class BreadcrumbsWidget {
+  static List<String> _getSegments() {
     String currentPath = Uri.base.path;
 
     List<String> segments = ['dashboard'];
@@ -18,18 +15,17 @@ class BreadcrumbsWidget extends StatelessWidget {
     return segments;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    List<String> segments = getSegments();
+  static Widget basic(BuildContext context, String? title) {
+    List<String> segments = _getSegments();
     return Builder(builder: (context) {
       if (title != null) {
         return Text(
-          title!,
+          title,
           style: AppTheme.typography.titleMedium,
         );
       } else {
         if (segments.length == 1) {
-          return Text(segments.first.toWordCase());
+          return Text(segments.first.snakeCasetoWordCase());
         } else {
           return Wrap(
             spacing: 8.0,
@@ -39,14 +35,14 @@ class BreadcrumbsWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Builder(builder: (context) {
-                    if (segments.first.toWordCase() != item) {
+                    if (segments.first.snakeCasetoWordCase() != item) {
                       return const Icon(
                         Icons.keyboard_double_arrow_right_rounded,
                       );
                     }
                     return const SizedBox();
                   }),
-                  Text(item.toWordCase()),
+                  Text(item.snakeCasetoWordCase()),
                 ],
               );
             }),

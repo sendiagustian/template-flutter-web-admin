@@ -13,4 +13,14 @@ class BoxShadowsTheme {
       ),
     ];
   }
+
+  List<BoxShadow> get box {
+    return [
+      BoxShadow(
+        color: Colors.grey[400]!,
+        offset: const Offset(0.4, 1),
+        blurRadius: 2,
+      ),
+    ];
+  }
 }

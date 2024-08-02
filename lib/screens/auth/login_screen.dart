@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/enums/type_enums.dart';
+import '../../core/constants/enums/type_enums.dart';
 import '../../core/utils/validator_text_field_util.dart';
 import '../../routes/services/navigator_service.dart';
 import '../../core/themes/app_theme.dart';
@@ -118,7 +118,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 AppTheme.spacing.exSmallX,
-                ButtonWidget.build(
+                ButtonWidget.ractangle(
                   text: "Verify",
                   height: 48,
                   type: auth.verifyId == null ? ButtonType.primary : ButtonType.disable,
@@ -140,7 +140,7 @@ class LoginScreen extends StatelessWidget {
           }),
           AppTheme.spacing.mediumY,
           Consumer<AuthAppProvider>(builder: (_, auth, __) {
-            return ButtonWidget.build(
+            return ButtonWidget.ractangle(
               text: "Submit",
               type: auth.verifyId != null ? ButtonType.primary : ButtonType.disable,
               width: AppTheme.double.screenW(context),

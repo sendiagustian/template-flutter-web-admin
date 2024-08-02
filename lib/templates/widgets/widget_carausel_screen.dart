@@ -40,7 +40,7 @@ class WidgetCarauselScreen extends StatelessWidget {
                 return CardWidget.basic(
                   title: "Carausel Basic",
                   children: [
-                    SliderWidget.build(
+                    SliderWidget.basic(
                       height: isLargeScreen(context)
                           ? 400
                           : isMediumScreen(context)

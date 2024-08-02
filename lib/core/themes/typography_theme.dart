@@ -76,7 +76,7 @@ class TypographyTheme {
     return TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w400,
-      color: AppTheme.colors.primaryText,
+      color: AppTheme.colors.textPrimary,
     );
   }
 
@@ -84,7 +84,7 @@ class TypographyTheme {
     return TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w400,
-      color: AppTheme.colors.secondaryText,
+      color: AppTheme.colors.textSecondary,
     );
   }
 
@@ -92,7 +92,7 @@ class TypographyTheme {
     return TextStyle(
       fontSize: 17,
       fontWeight: FontWeight.w400,
-      color: AppTheme.colors.primaryText,
+      color: AppTheme.colors.textPrimary,
     );
   }
 
@@ -100,7 +100,7 @@ class TypographyTheme {
     return TextStyle(
       fontSize: 17,
       fontWeight: FontWeight.w400,
-      color: AppTheme.colors.secondaryText,
+      color: AppTheme.colors.textSecondary,
     );
   }
 
@@ -108,7 +108,7 @@ class TypographyTheme {
     return TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w400,
-      color: AppTheme.colors.primaryText,
+      color: AppTheme.colors.textPrimary,
     );
   }
 
@@ -116,7 +116,7 @@ class TypographyTheme {
     return TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w400,
-      color: AppTheme.colors.secondaryText,
+      color: AppTheme.colors.textSecondary,
     );
   }
 
@@ -124,7 +124,7 @@ class TypographyTheme {
     return TextStyle(
       fontSize: 15,
       fontWeight: FontWeight.w500,
-      color: AppTheme.colors.primaryText,
+      color: AppTheme.colors.textPrimary,
     );
   }
 
@@ -132,7 +132,7 @@ class TypographyTheme {
     return TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w400,
-      color: AppTheme.colors.primaryText,
+      color: AppTheme.colors.textPrimary,
     );
   }
 
@@ -140,7 +140,7 @@ class TypographyTheme {
     return TextStyle(
       fontSize: 13,
       fontWeight: FontWeight.w400,
-      color: AppTheme.colors.primaryText,
+      color: AppTheme.colors.textPrimary,
     );
   }
 

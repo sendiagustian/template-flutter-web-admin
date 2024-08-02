@@ -22,6 +22,8 @@ class NavbarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.onMobileMenuTap,
   });
 
+  static final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -46,8 +48,9 @@ class NavbarWidget extends StatelessWidget implements PreferredSizeWidget {
           if (navItems.isEmpty)
             Expanded(
               child: SingleChildScrollView(
+                controller: _scrollController,
                 scrollDirection: Axis.horizontal,
-                child: BreadcrumbsWidget(title: title),
+                child: BreadcrumbsWidget.basic(context, title),
               ),
             ),
           if (isLargeScreen(context))

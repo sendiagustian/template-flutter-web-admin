@@ -120,7 +120,7 @@ class WidgetTableScreen extends StatelessWidget {
               ],
             ),
             AppTheme.spacing.mediumY,
-            TableWidget.card(
+            TableWidget.fixed(
               context: context,
               addText: "Add",
               title: "Table Card With All Properti",

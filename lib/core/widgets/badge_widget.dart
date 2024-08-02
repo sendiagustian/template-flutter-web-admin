@@ -21,14 +21,15 @@ class BadgeWidget {
     }
   }
 
-  static Widget build({
+  static Widget basic({
     required BuildContext context,
     required int currentMenu,
     required Function(int) onTap,
     required List<String> menus,
-    TextStyle? textStyle,
   }) {
+    final ScrollController scrollController = ScrollController();
     return SingleChildScrollView(
+      controller: scrollController,
       scrollDirection: Axis.horizontal,
       child: Row(
         children: List.generate(
@@ -39,25 +40,72 @@ class BadgeWidget {
               margin: (index == menus.length - 1) ? null : AppTheme.geometry.smallR,
               child: ChoiceChip(
                 showCheckmark: false,
-                label: Text(
-                  menus[index],
-                  style: textStyle?.copyWith(color: isSelected ? Colors.white : Colors.black),
-                ),
                 backgroundColor: Colors.white,
                 selectedColor: AppTheme.colors.primary,
                 padding: AppTheme.geometry.small,
                 labelStyle: _labelStyle(index, currentMenu),
                 selected: _isSelected(index, currentMenu),
                 shape: RoundedRectangleBorder(
-                  borderRadius: AppTheme.radius.small,
+                  borderRadius: AppTheme.radius.exLarge,
                 ),
                 onSelected: (value) {
                   onTap(index);
                 },
+                label: Text(
+                  menus[index],
+                  style: AppTheme.typography.labelMedium.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: isSelected ? Colors.white : Colors.black,
+                  ),
+                ),
               ),
             );
           },
         ),
+      ),
+    );
+  }
+
+  static Widget wrap({
+    required BuildContext context,
+    required int currentMenu,
+    required Function(int) onTap,
+    required List<String> menus,
+    double runSpacing = 0,
+    Axis direction = Axis.horizontal,
+  }) {
+    return Wrap(
+      direction: direction,
+      runSpacing: runSpacing,
+      children: List.generate(
+        menus.length,
+        (index) {
+          bool isSelected = currentMenu == index;
+          return Container(
+            margin: (index == menus.length - 1) ? null : AppTheme.geometry.smallR,
+            child: ChoiceChip(
+              showCheckmark: false,
+              backgroundColor: Colors.white,
+              selectedColor: AppTheme.colors.primary,
+              padding: AppTheme.geometry.small,
+              labelStyle: _labelStyle(index, currentMenu),
+              selected: _isSelected(index, currentMenu),
+              shape: RoundedRectangleBorder(
+                borderRadius: AppTheme.radius.exLarge,
+              ),
+              onSelected: (value) {
+                onTap(index);
+              },
+              label: Text(
+                menus[index],
+                style: AppTheme.typography.labelMedium.copyWith(
+                  fontWeight: FontWeight.w500,
+                  color: isSelected ? Colors.white : Colors.black,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

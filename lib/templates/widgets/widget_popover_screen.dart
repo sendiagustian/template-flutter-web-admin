@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:popover/popover.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/enums/type_enums.dart';
+import '../../core/constants/enums/type_enums.dart';
 import '../../core/themes/app_theme.dart';
 import '../../core/widgets/button_widget.dart';
 import '../../core/widgets/card_widget.dart';
@@ -41,7 +41,7 @@ class WidgetPopoverScreen extends StatelessWidget {
                     runSpacing: 8,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      ButtonWidget.build(
+                      ButtonWidget.ractangle(
                         text: "Popover Info",
                         type: ButtonType.primary,
                         onPressed: () {

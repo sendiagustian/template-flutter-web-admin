@@ -12,6 +12,8 @@ class TableRowHoverWidget extends StatefulWidget {
   final bool isLastIndex;
   final double maxHeight;
   final double maxWidth;
+  final int? maxLines;
+  final TextOverflow? overflow;
 
   const TableRowHoverWidget({
     super.key,
@@ -23,6 +25,8 @@ class TableRowHoverWidget extends StatefulWidget {
     required this.isLastIndex,
     this.maxHeight = 80.0,
     this.maxWidth = double.infinity,
+    this.maxLines,
+    this.overflow,
   });
 
   @override
@@ -71,7 +75,9 @@ class TableRowHoverWidgetState extends State<TableRowHoverWidget> {
                           child: Text(
                             widget.data.rowData[column.title].toString(),
                             textAlign: column.textAlign,
-                            style: AppTheme.typography.bodySmall,
+                            maxLines: widget.maxLines,
+                            overflow: widget.overflow,
+                            style: AppTheme.typography.bodySmall.copyWith(fontSize: 13.5),
                           ),
                         ),
                       );

@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../themes/app_theme.dart';
+import 'customs/text_field_otp_custom_widget.dart';
 import 'hovers/input_file_hover_widget.dart';
 
 class InputWidget {
@@ -40,9 +41,9 @@ class InputWidget {
               children: [
                 Text(
                   title,
-                  style: titleStyle ?? AppTheme.typography.titleSmall,
+                  style: titleStyle ?? AppTheme.typography.labelLarge,
                 ),
-                AppTheme.spacing.exSmallY,
+                AppTheme.spacing.smallY,
               ],
             );
           }
@@ -119,6 +120,7 @@ class InputWidget {
     required String title,
     TextStyle? titleStyle,
     TextStyle? hintStyle,
+    TextStyle? counterStyle,
     required String hintText,
     TextEditingController? controller,
     String? Function(String?)? validator,
@@ -139,9 +141,9 @@ class InputWidget {
       children: [
         Text(
           title,
-          style: titleStyle ?? AppTheme.typography.titleSmall,
+          style: titleStyle ?? AppTheme.typography.labelLarge,
         ),
-        AppTheme.spacing.exSmallY,
+        AppTheme.spacing.smallY,
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,6 +169,7 @@ class InputWidget {
                   suffixIcon: suffixIcon,
                   prefixIcon: prefixIcon,
                   hintText: hintText,
+                  counterStyle: counterStyle ?? AppTheme.typography.bodySmall,
                   fillColor: enabled ? Colors.white : Colors.grey[100],
                   hintStyle: hintStyle ?? AppTheme.typography.bodyMediumHint,
                   contentPadding: AppTheme.geometry.custom(top: 24, right: 16, left: 16, bottom: 8),
@@ -217,10 +220,10 @@ class InputWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             title,
-            style: titleStyle ?? AppTheme.typography.titleSmall,
+            style: titleStyle ?? AppTheme.typography.labelLarge,
           ),
         ),
-        AppTheme.spacing.exSmallY,
+        AppTheme.spacing.smallY,
         TextFormField(
           readOnly: true,
           controller: controller,
@@ -271,7 +274,8 @@ class InputWidget {
   static Widget formDropDownInput<T>({
     required BuildContext context,
     required T? value,
-    required String title,
+    String? title,
+    TextStyle? titleStyle,
     required String hintText,
     required void Function(T?)? onChanged,
     String? Function(T?)? validator,
@@ -286,8 +290,21 @@ class InputWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: AppTheme.typography.titleMedium),
-        AppTheme.spacing.exSmallY,
+        Builder(builder: (context) {
+          if (title != null) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: titleStyle ?? AppTheme.typography.labelLarge,
+                ),
+                AppTheme.spacing.smallY,
+              ],
+            );
+          }
+          return const SizedBox();
+        }),
         DropdownButtonFormField<T>(
           value: value,
           padding: EdgeInsets.zero,
@@ -351,6 +368,7 @@ class InputWidget {
     required void Function(AutocompleteData?)? onSelected,
     required List<AutocompleteData> dataOptions,
   }) {
+    final ScrollController scrollController = ScrollController();
     return LayoutBuilder(
       builder: (context, constraints) {
         return Column(
@@ -360,10 +378,10 @@ class InputWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 title,
-                style: titleStyle ?? AppTheme.typography.titleSmall,
+                style: titleStyle ?? AppTheme.typography.labelLarge,
               ),
             ),
-            AppTheme.spacing.exSmallY,
+            AppTheme.spacing.smallY,
             RawAutocomplete<String>(
               initialValue: value == null
                   ? null
@@ -397,6 +415,7 @@ class InputWidget {
                         borderRadius: AppTheme.radius.exSmall,
                       ),
                       child: SingleChildScrollView(
+                        controller: scrollController,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -452,9 +471,9 @@ class InputWidget {
               children: [
                 Text(
                   title,
-                  style: titleStyle ?? AppTheme.typography.titleSmall,
+                  style: titleStyle ?? AppTheme.typography.labelLarge,
                 ),
-                AppTheme.spacing.exSmallY,
+                AppTheme.spacing.smallY,
               ],
             );
           }
@@ -465,44 +484,89 @@ class InputWidget {
     );
   }
 
-  static Widget formOTPInput({required int length, required void Function(String) onComplete}) {
-    List<FocusNode> focusNodes = List.generate(length, (index) => FocusNode());
-    List<TextEditingController> controllers = List.generate(length, (index) => TextEditingController());
+  static Widget formOTPInput({required int length, required ValueChanged<String> onCompleted}) {
+    return TextFieldOtpCustomWidget(
+      length: length,
+      fieldWidth: 50,
+      contentPadding: EdgeInsets.zero,
+      outlineBorderRadius: AppTheme.double.doubleX4,
+      style: AppTheme.typography.bodyMedium,
+      textFieldAlignment: MainAxisAlignment.spaceAround,
+      onCompleted: (code) {
+        onCompleted(code);
+      },
+    );
+  }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: List.generate(length, (index) {
-        bool isFirst = index == 0;
-        bool isLast = index == length - 1;
-
-        return Container(
-          width: 50,
-          margin: isLast ? EdgeInsets.zero : const EdgeInsets.only(right: 4),
-          child: TextField(
-            textAlign: TextAlign.center,
-            focusNode: focusNodes[index],
-            controller: controllers[index],
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              if (value.isNotEmpty && !isLast) {
-                focusNodes[index + 1].requestFocus();
-              }
-              if (value.isEmpty && !isFirst) {
-                focusNodes[index - 1].requestFocus();
-              }
-              if (value.isNotEmpty && isLast) {
-                focusNodes[index].unfocus();
-              }
-              String codeResult = '';
-              for (var controller in controllers) {
-                codeResult += controller.text;
-              }
-              onComplete(codeResult);
-            },
-          ),
-        );
-      }),
+  static Widget formRadioGroupInput<T>({
+    required String title,
+    required T group,
+    required List<RadioItemData<T>> items,
+    Axis direction = Axis.horizontal,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: AppTheme.typography.labelLarge.copyWith(color: Colors.white),
+        ),
+        Builder(builder: (context) {
+          if (direction == Axis.horizontal) {
+            return Row(
+              children: items.map((item) {
+                return Row(
+                  children: [
+                    Radio<T>(
+                      value: item.value,
+                      fillColor: WidgetStateColor.resolveWith(
+                        (states) => Colors.white,
+                      ),
+                      groupValue: group,
+                      onChanged: item.onChanged,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        item.onChanged(item.value);
+                      },
+                      child: Text(
+                        item.value.toString(),
+                        style: AppTheme.typography.bodyMedium.copyWith(color: Colors.white),
+                      ),
+                    )
+                  ],
+                );
+              }).toList(),
+            );
+          } else {
+            return Column(
+              children: items.map((item) {
+                return Row(
+                  children: [
+                    Radio<T>(
+                      value: item.value,
+                      fillColor: WidgetStateColor.resolveWith(
+                        (states) => Colors.white,
+                      ),
+                      groupValue: group,
+                      onChanged: item.onChanged,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        item.onChanged(item.value);
+                      },
+                      child: Text(
+                        item.value.toString(),
+                        style: AppTheme.typography.bodyMedium.copyWith(color: Colors.white),
+                      ),
+                    )
+                  ],
+                );
+              }).toList(),
+            );
+          }
+        }),
+      ],
     );
   }
 }
@@ -510,5 +574,13 @@ class InputWidget {
 class AutocompleteData {
   final String key;
   final String value;
+
   AutocompleteData({required this.key, required this.value});
+}
+
+class RadioItemData<T> {
+  final T value;
+  final void Function(T?) onChanged;
+
+  RadioItemData({required this.value, required this.onChanged});
 }

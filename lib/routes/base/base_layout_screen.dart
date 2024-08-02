@@ -14,7 +14,6 @@ import '../providers/sidebar_provider.dart';
 import '../items/route_item.dart';
 import '../route_side_menu.dart';
 import '../../core/utils/app_util.dart';
-import '../../screens/profile/profile_screen.dart';
 
 class BaseLayoutScreen extends StatelessWidget {
   final String? title;
@@ -68,13 +67,13 @@ class BaseLayoutScreen extends StatelessWidget {
                           title: !isLargeScreen(context) ? title : null,
                           navItems: itemNavMenus,
                           profileItems: [
-                            ProfileItem(
-                              icon: Icons.person,
-                              name: 'Profile',
-                              onTap: () {
-                                NavigatorService.push(context: context, route: ProfileScreen.path);
-                              },
-                            ),
+                            // ProfileItem(
+                            //   icon: Icons.person,
+                            //   name: 'Profile',
+                            //   onTap: () {
+                            //     NavigatorService.push(context: context, route: ProfileScreen.path);
+                            //   },
+                            // ),
                             ProfileItem(
                               icon: Icons.logout,
                               name: 'Logout',

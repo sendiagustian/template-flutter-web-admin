@@ -28,7 +28,7 @@ class WidgetListTileScreen extends StatelessWidget {
               int contentText = index + 1;
               return Container(
                 margin: AppTheme.geometry.mediumB,
-                child: ListTileWidget.build(
+                child: ListTileWidget.basic(
                   context: context,
                   withColorLeading: true,
                   onTapDetail: () {},

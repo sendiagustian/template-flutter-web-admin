@@ -4,43 +4,7 @@ import 'package:flutter/material.dart';
 import '../themes/app_theme.dart';
 
 class SliderWidget {
-  static Widget _indicator({
-    required int length,
-    required int currentIndex,
-    required Color? activeColor,
-  }) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: List.generate(length, (index) {
-          if (index == currentIndex) {
-            return Container(
-              width: 20,
-              height: 8,
-              margin: const EdgeInsets.symmetric(horizontal: 1),
-              decoration: BoxDecoration(
-                color: activeColor ?? AppTheme.colors.secondary,
-                borderRadius: BorderRadius.circular(8),
-              ),
-            );
-          }
-          return Container(
-            width: 8,
-            height: 8,
-            margin: const EdgeInsets.symmetric(horizontal: 1),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey[400],
-            ),
-          );
-        }),
-      ),
-    );
-  }
-
-  static Widget build({
+  static Widget basic({
     required int currentIndex,
     required List<Widget> items,
     Color? indicatorActiveColor,
@@ -72,6 +36,42 @@ class SliderWidget {
         AppTheme.spacing.exSmallY,
         _indicator(length: items.length, currentIndex: currentIndex, activeColor: indicatorActiveColor)
       ],
+    );
+  }
+
+  static Widget _indicator({
+    required int length,
+    required int currentIndex,
+    required Color? activeColor,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(length, (index) {
+          if (index == currentIndex) {
+            return Container(
+              width: 20,
+              height: 8,
+              margin: const EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                color: activeColor ?? AppTheme.colors.secondary,
+                borderRadius: AppTheme.radius.small,
+              ),
+            );
+          }
+          return Container(
+            width: 8,
+            height: 8,
+            margin: const EdgeInsets.symmetric(horizontal: 1),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey[400],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

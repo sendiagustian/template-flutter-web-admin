@@ -8,7 +8,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import '../extensions/string_extension.dart';
 
 String enumToString(Object enumValue) {
-  return enumValue.toString().split('.').last.toWordCase();
+  return enumValue.toString().split('.').last.camelCaseToWordCase();
 }
 
 String generateRandomToken({int length = 32}) {

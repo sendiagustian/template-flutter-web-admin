@@ -3,35 +3,6 @@ import 'package:flutter/material.dart';
 import '../themes/app_theme.dart';
 
 class CardWidget {
-  static Widget _separator({required bool isExpansion, bool isDashed = false}) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        double boxWidth = constraints.constrainWidth();
-        double dashWidth = 8.0;
-        double dashHeight = isExpansion ? 1.2 : 0.8;
-        int dashCount = (boxWidth / (2 * dashWidth)).floor();
-        if (!isDashed) {
-          return Container(height: isExpansion ? 1 : 1.2, width: double.infinity, color: Colors.grey[300]);
-        }
-        return Flex(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          direction: Axis.horizontal,
-          children: List.generate(dashCount, (_) {
-            return SizedBox(
-              width: dashWidth,
-              height: dashHeight,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey[400],
-                ),
-              ),
-            );
-          }),
-        );
-      },
-    );
-  }
-
   static Widget basic({
     required String title,
     required List<Widget> children,
@@ -133,6 +104,35 @@ class CardWidget {
           ),
         ],
       ),
+    );
+  }
+
+  static Widget _separator({required bool isExpansion, bool isDashed = false}) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double boxWidth = constraints.constrainWidth();
+        double dashWidth = 8.0;
+        double dashHeight = isExpansion ? 1.2 : 0.8;
+        int dashCount = (boxWidth / (2 * dashWidth)).floor();
+        if (!isDashed) {
+          return Container(height: isExpansion ? 1 : 1.2, width: double.infinity, color: Colors.grey[300]);
+        }
+        return Flex(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          direction: Axis.horizontal,
+          children: List.generate(dashCount, (_) {
+            return SizedBox(
+              width: dashWidth,
+              height: dashHeight,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                ),
+              ),
+            );
+          }),
+        );
+      },
     );
   }
 }

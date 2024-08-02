@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../themes/app_theme.dart';
+import '../../themes/app_theme.dart';
 
-class LoadingIndicatorWidget extends StatelessWidget {
+class LoadingIndicatorCustomWidget extends StatelessWidget {
   final String? loadingText;
   final double loadingSize;
-  const LoadingIndicatorWidget({
+  const LoadingIndicatorCustomWidget({
     super.key,
     this.loadingText,
     required this.loadingSize,
@@ -23,7 +23,7 @@ class LoadingIndicatorWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.9),
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: AppTheme.radius.small,
             boxShadow: const [
               BoxShadow(
                 color: Colors.black26,

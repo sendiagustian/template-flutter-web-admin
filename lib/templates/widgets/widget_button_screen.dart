@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/enums/type_enums.dart';
+import '../../core/constants/enums/type_enums.dart';
 import '../../core/themes/app_theme.dart';
 import '../../core/widgets/button_widget.dart';
 import '../../core/widgets/card_widget.dart';
@@ -35,17 +35,17 @@ class WidgetButtonScreen extends StatelessWidget {
                   runSpacing: 16,
                   spacing: 16,
                   children: [
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Primary",
                       type: ButtonType.primary,
                       onPressed: () {},
                     ),
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Secondary",
                       type: ButtonType.secondary,
                       onPressed: () {},
                     ),
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Disable",
                       type: ButtonType.disable,
                     ),
@@ -58,19 +58,19 @@ class WidgetButtonScreen extends StatelessWidget {
                   runSpacing: 16,
                   spacing: 16,
                   children: [
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Primary",
                       width: 300,
                       type: ButtonType.primary,
                       onPressed: () {},
                     ),
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Secondary",
                       width: 300,
                       type: ButtonType.secondary,
                       onPressed: () {},
                     ),
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Disable",
                       width: 300,
                       type: ButtonType.disable,
@@ -80,21 +80,21 @@ class WidgetButtonScreen extends StatelessWidget {
                 AppTheme.spacing.smallY,
                 const Text("Infinity Width"),
                 AppTheme.spacing.smallY,
-                ButtonWidget.build(
+                ButtonWidget.ractangle(
                   text: "Primary",
                   width: AppTheme.double.screenW(context),
                   type: ButtonType.primary,
                   onPressed: () {},
                 ),
                 AppTheme.spacing.smallY,
-                ButtonWidget.build(
+                ButtonWidget.ractangle(
                   text: "Secondary",
                   width: AppTheme.double.screenW(context),
                   type: ButtonType.secondary,
                   onPressed: () {},
                 ),
                 AppTheme.spacing.smallY,
-                ButtonWidget.build(
+                ButtonWidget.ractangle(
                   text: "Disable",
                   width: AppTheme.double.screenW(context),
                   type: ButtonType.disable,
@@ -111,21 +111,21 @@ class WidgetButtonScreen extends StatelessWidget {
                   runSpacing: 16,
                   spacing: 16,
                   children: [
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Primary",
                       leftIcon: Icons.add,
                       type: ButtonType.primary,
                       onPressed: () {},
                     ),
                     AppTheme.spacing.customX(12),
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Secondary",
                       leftIcon: Icons.add,
                       type: ButtonType.secondary,
                       onPressed: () {},
                     ),
                     AppTheme.spacing.customX(12),
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Disable",
                       leftIcon: Icons.add,
                       type: ButtonType.disable,
@@ -139,21 +139,21 @@ class WidgetButtonScreen extends StatelessWidget {
                   runSpacing: 16,
                   spacing: 16,
                   children: [
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Primary",
                       width: 300,
                       rightIcon: Icons.send,
                       type: ButtonType.primary,
                       onPressed: () {},
                     ),
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Secondary",
                       width: 300,
                       rightIcon: Icons.send,
                       type: ButtonType.secondary,
                       onPressed: () {},
                     ),
-                    ButtonWidget.build(
+                    ButtonWidget.ractangle(
                       text: "Disable",
                       width: 300,
                       rightIcon: Icons.send,
@@ -164,7 +164,7 @@ class WidgetButtonScreen extends StatelessWidget {
                 AppTheme.spacing.smallY,
                 const Text("Icon Infinity Width"),
                 AppTheme.spacing.smallY,
-                ButtonWidget.build(
+                ButtonWidget.ractangle(
                   text: "Primary",
                   width: AppTheme.double.screenW(context),
                   leftIcon: Icons.star,
@@ -173,7 +173,7 @@ class WidgetButtonScreen extends StatelessWidget {
                   onPressed: () {},
                 ),
                 AppTheme.spacing.smallY,
-                ButtonWidget.build(
+                ButtonWidget.ractangle(
                   text: "Secondary",
                   width: AppTheme.double.screenW(context),
                   leftIcon: Icons.star,
@@ -182,7 +182,7 @@ class WidgetButtonScreen extends StatelessWidget {
                   onPressed: () {},
                 ),
                 AppTheme.spacing.smallY,
-                ButtonWidget.build(
+                ButtonWidget.ractangle(
                   text: "Disable",
                   width: AppTheme.double.screenW(context),
                   leftIcon: Icons.star,

@@ -3,31 +3,13 @@ import 'package:intl/intl.dart';
 extension StringExtension on String {
   // test = Test
   String capitalize() {
-    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+    return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
   }
 
-  String toCamelCaseUp() {
-    // TestCamelcase
-    String input = this;
-    List<String> words = input.split(RegExp(r'\s+|_+'));
-
-    // Capitalize the first letter of each word (except the first word)
-    for (int i = 1; i < words.length; i++) {
-      if (words[i].isNotEmpty) {
-        words[i] = words[i][0].toUpperCase() + words[i].substring(1);
-      }
-    }
-
-    // Concatenate the words to form camel case
-    String camelCaseString = words.join('');
-
-    return camelCaseString;
-  }
-
-  String toCamelCaseLow() {
+  String toCamelCase() {
     // testLowCase
     String input = this;
-    List<String> words = input.split(" ");
+    List<String> words = input.split(' ');
 
     String camelCaseString = '';
     for (int i = 0; i < words.length; i++) {
@@ -40,14 +22,14 @@ extension StringExtension on String {
     return camelCaseString;
   }
 
-  String toWordCase() {
+  String snakeCasetoWordCase({String separator = ' '}) {
     String input = this;
     List<String> words = input.split(RegExp(r'(?=[A-Z])'));
 
     List<String> newWords = words.map((e) {
       String word;
       if (e.split('-').length > 1) {
-        word = e.split('-').map((e) => e.capitalize()).join(" ");
+        word = e.split('-').map((e) => e.capitalize()).join(separator);
       } else {
         word = e.capitalize();
       }
@@ -55,16 +37,30 @@ extension StringExtension on String {
       return word;
     }).toList();
 
-    String camelCaseString = newWords.join(" ");
+    String camelCaseString = newWords.join(' ');
 
     return camelCaseString;
   }
 
+  String camelCaseToWordCase() {
+    String camelCaseString = this;
+    String wordCaseString = camelCaseString.replaceAllMapped(
+      RegExp(r'([a-z])([A-Z])'),
+      (Match match) => '${match.group(1)} ${match.group(2)}',
+    );
+
+    wordCaseString = wordCaseString.split(' ').map((word) {
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).join(' ');
+
+    return wordCaseString;
+  }
+
   String toSnakeCase() {
     String input = this;
-    List<String> words = input.split(" ");
+    List<String> words = input.split(' ');
 
-    String snakeCaseString = words.join("-").toLowerCase();
+    String snakeCaseString = words.join('-').toLowerCase();
 
     return snakeCaseString;
   }
@@ -123,16 +119,16 @@ extension StringExtension on String {
 
   String fullDateTime() {
     dynamic date = this;
-    String fullDate = "-";
+    String fullDate = '-';
 
     if (date is String) {
       DateTime parsedDate = DateTime.parse(date);
-      String dateFormated = DateFormat("dd MMMM yyyy HH:mm").format(
+      String dateFormated = DateFormat('dd MMMM yyyy HH:mm').format(
         parsedDate,
       );
       fullDate = dateFormated;
     } else if (date is DateTime) {
-      String dateFormated = DateFormat("dd MMMM yyyy HH:mm").format(
+      String dateFormated = DateFormat('dd MMMM yyyy HH:mm').format(
         date,
       );
       fullDate = dateFormated;
@@ -143,14 +139,14 @@ extension StringExtension on String {
 
   String fullDate() {
     dynamic date = this;
-    String fullDate = "-";
+    String fullDate = '-';
 
     if (date is String) {
       DateTime parsedDate = DateTime.parse(date);
-      String dateFormated = DateFormat("dd MMMM yyyy", "id").format(parsedDate);
+      String dateFormated = DateFormat('dd MMMM yyyy', 'id').format(parsedDate);
       fullDate = dateFormated;
     } else if (date is DateTime) {
-      String dateFormated = DateFormat("dd MMMM yyyy", "id").format(date);
+      String dateFormated = DateFormat('dd MMMM yyyy', 'id').format(date);
       fullDate = dateFormated;
     }
 
@@ -159,26 +155,26 @@ extension StringExtension on String {
 
   String toTime() {
     dynamic date = this;
-    String fullDate = "-";
+    String fullDate = '-';
 
     if (date is String) {
       try {
         DateTime parsedDate = DateTime.parse(date);
-        String dateFormated = DateFormat("HH:mm", "id").format(
+        String dateFormated = DateFormat('HH:mm', 'id').format(
           parsedDate,
         );
         fullDate = dateFormated;
       } catch (e) {
-        return "-";
+        return '-';
       }
     } else if (date is DateTime) {
       try {
-        String dateFormated = DateFormat("HH:mm", "id").format(
+        String dateFormated = DateFormat('HH:mm', 'id').format(
           date,
         );
         fullDate = dateFormated;
       } catch (e) {
-        return "-";
+        return '-';
       }
     }
 
@@ -187,7 +183,7 @@ extension StringExtension on String {
 
   String toNow() {
     dynamic date = this;
-    String fullDate = "-";
+    String fullDate = '-';
 
     if (date is String) {
       DateTime parsedDate = DateTime.parse(date);
@@ -196,14 +192,14 @@ extension StringExtension on String {
 
       if (difference <= 7) {
         if (difference == 0) {
-          fullDate = "Hari ini";
+          fullDate = 'Hari ini';
         } else if (difference == 1) {
-          fullDate = "Kemarin";
+          fullDate = 'Kemarin';
         } else {
-          fullDate = DateFormat("EEEE", "id").format(parsedDate);
+          fullDate = DateFormat('EEEE', 'id').format(parsedDate);
         }
       } else {
-        fullDate = DateFormat("MM/dd/yyyy", "id").format(parsedDate);
+        fullDate = DateFormat('MM/dd/yyyy', 'id').format(parsedDate);
       }
     } else if (date is DateTime) {
       final now = DateTime.now();
@@ -211,14 +207,14 @@ extension StringExtension on String {
 
       if (difference <= 7) {
         if (difference == 0) {
-          fullDate = "Hari ini";
+          fullDate = 'Hari ini';
         } else if (difference == 1) {
-          fullDate = "Kemarin";
+          fullDate = 'Kemarin';
         } else {
-          fullDate = DateFormat("EEEE", "id").format(date);
+          fullDate = DateFormat('EEEE', 'id').format(date);
         }
       } else {
-        fullDate = DateFormat("MM/dd/yyyy", "id").format(date);
+        fullDate = DateFormat('MM/dd/yyyy', 'id').format(date);
       }
     }
 

@@ -10,9 +10,8 @@ class BaseTheme {
       textTheme: AppTheme.typography.typography,
       fontFamily: AppTheme.typography.fontPrimary,
       scaffoldBackgroundColor: AppTheme.colors.bgLight,
-      buttonTheme: const ButtonThemeData(
-        alignedDropdown: true,
-      ),
+      iconTheme: const IconThemeData(color: Colors.white),
+      buttonTheme: const ButtonThemeData(alignedDropdown: true),
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppTheme.colors.primary,
         primary: AppTheme.colors.primary,
@@ -20,13 +19,13 @@ class BaseTheme {
       ),
       appBarTheme: AppBarTheme(
         toolbarHeight: 70,
-        elevation: 5.0,
-        scrolledUnderElevation: 5.0,
+        elevation: 0,
+        scrolledUnderElevation: 0,
         surfaceTintColor: Colors.white,
         backgroundColor: Colors.white,
-        foregroundColor: AppTheme.colors.primaryText,
-        titleTextStyle: TextStyle(color: AppTheme.colors.primaryText),
-        iconTheme: IconThemeData(color: AppTheme.colors.primaryText, grade: 2),
+        foregroundColor: Colors.white,
+        titleTextStyle: TextStyle(color: AppTheme.colors.textPrimary),
+        iconTheme: const IconThemeData(color: Colors.white, grade: 2),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: AppTheme.colors.primary,
@@ -56,6 +55,20 @@ class BaseTheme {
           borderSide: BorderSide(
             width: 0.8,
             color: AppTheme.colors.primary,
+          ),
+          borderRadius: AppTheme.radius.exSmall,
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.8,
+            color: AppTheme.colors.red,
+          ),
+          borderRadius: AppTheme.radius.exSmall,
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.8,
+            color: AppTheme.colors.red,
           ),
           borderRadius: AppTheme.radius.exSmall,
         ),

@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 
 import '../themes/app_theme.dart';
+import 'customs/tab_bar_custom_widget.dart';
 import 'hovers/tab_bar_hover_widget.dart';
 
 class TabBarWidget {
-  static Widget build({
+  static Widget basic({
+    required void Function(int) onTap,
+    required List<String> items,
+  }) {
+    return TabBarCustomWidget(
+      onTap: onTap,
+      tabs: items.map((item) {
+        return item;
+      }).toList(),
+    );
+  }
+
+  static Widget card({
     required int currentIndex,
     required List<TabItem> items,
     required void Function(int) onChange,

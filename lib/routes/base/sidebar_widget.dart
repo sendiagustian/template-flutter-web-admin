@@ -31,7 +31,7 @@ class SidebarWidget extends StatelessWidget {
           Material(
             color: AppTheme.colors.bgDark,
             child: SizedBox(
-              width: 300,
+              width: 280,
               child: Column(
                 children: [
                   _buildLogoTitle(),
@@ -54,11 +54,11 @@ class SidebarWidget extends StatelessWidget {
                                     category,
                                     style: const TextStyle(
                                       color: Colors.white,
-                                      fontSize: 14,
+                                      fontSize: 13,
                                     ),
                                   ),
                                 ),
-                                AppTheme.spacing.smallY,
+                                // AppTheme.spacing.exSmallY,
                                 ...List.generate(menus.length, (index) {
                                   final item = menus[index];
                                   return buildItemMenu(
@@ -151,7 +151,7 @@ class SidebarWidget extends StatelessWidget {
                       item.name,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -233,11 +233,11 @@ class SidebarWidget extends StatelessWidget {
             ),
             const Expanded(
               child: Text(
-                "Admin Template",
+                "Tong Nyampah",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 24,
+                  fontSize: 20,
                   fontWeight: FontWeight.w400,
                 ),
               ),

@@ -84,7 +84,7 @@ class IconProfileWidget extends StatelessWidget {
                         child: TextHoverWidget(
                           text: item.name,
                           icon: item.icon,
-                          defaultColor: AppTheme.colors.primaryText,
+                          defaultColor: AppTheme.colors.textPrimary,
                           hoverColor: AppTheme.colors.primary,
                         ),
                       ),

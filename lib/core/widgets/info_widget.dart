@@ -162,9 +162,10 @@ class InfoWidget {
   }
 
   static Widget loadingData({
-    String? loadingTitle,
+    String? message,
+    Color? color,
   }) {
-    if (loadingTitle != null) {
+    if (message != null) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -173,15 +174,17 @@ class InfoWidget {
             const CircularProgressIndicator(),
             const SizedBox(height: 16),
             Text(
-              loadingTitle,
+              message,
               textAlign: TextAlign.center,
             )
           ],
         ),
       );
     } else {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return Center(
+        child: CircularProgressIndicator(
+          color: color ?? AppTheme.colors.primary,
+        ),
       );
     }
   }

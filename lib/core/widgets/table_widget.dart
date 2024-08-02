@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../enums/type_enums.dart';
+import '../constants/enums/type_enums.dart';
 import '../extensions/color_extension.dart';
 import '../themes/app_theme.dart';
 import '../utils/app_util.dart';
 import 'button_widget.dart';
-import 'card_widget.dart';
 import 'hovers/table_row_hover_widget.dart';
 import 'input_widget.dart';
-import 'pagination_widget.dart';
+import 'customs/pagination_custom_widget.dart';
 
 class TableWidget {
-  static Widget headColumn({
+  static Widget _headColumn({
     required List<ColumnItem> columns,
     Color? color,
     double maxHeight = 100.0,
@@ -37,6 +36,7 @@ class TableWidget {
                     textAlign: column.textAlign,
                     style: AppTheme.typography.labelLarge.copyWith(
                       color: color?.getTextColor(),
+                      fontSize: 14,
                     ),
                   ),
                 ),
@@ -49,7 +49,7 @@ class TableWidget {
     );
   }
 
-  static Widget card<T>({
+  static Widget fixed<T>({
     required BuildContext context,
     required String title,
     required List<ColumnItem> columns,
@@ -57,15 +57,21 @@ class TableWidget {
     List<BoxShadow>? boxShadow,
     String? addText,
     void Function()? onTapAdd,
-    double maxLargeScreenWidth = 1505,
+    double maxLargeScreenWidth = 1575,
     double maxMediumScreenWidth = 1000,
     double maxSmallScreenWidth = 800,
     double maxHeight = double.infinity,
     double columnHeight = 100.0,
+    double? rowHeight,
+    int? rowMaxLines,
+    TextOverflow? rowTextOverflow,
     Color? columnBackgroundColor,
     SearchProps? searchProps,
     PaginationProps? paginationProps,
   }) {
+    ScrollController horizontalScrollController = ScrollController();
+    ScrollController verticalScrollController = ScrollController();
+
     double getMaxWidthTable() {
       if (isSmallScreen(context)) {
         return maxSmallScreenWidth;
@@ -77,12 +83,21 @@ class TableWidget {
     }
 
     return Container(
+      padding: AppTheme.geometry.custom(top: 16, left: 16, right: 16, bottom: 0),
       constraints: BoxConstraints(maxHeight: maxHeight, maxWidth: double.infinity),
-      child: CardWidget.basic(
-        title: title,
-        boxShadow: boxShadow,
-        withSeparator: false,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: AppTheme.boxShadows.basic,
+        borderRadius: AppTheme.radius.small,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            title,
+            style: AppTheme.typography.titleLarge,
+          ),
+          AppTheme.spacing.customY(12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -124,68 +139,105 @@ class TableWidget {
               if (addText != null)
                 Container(
                   margin: AppTheme.geometry.mediumB,
-                  child: ButtonWidget.build(text: addText, type: ButtonType.primary, onPressed: onTapAdd),
+                  child: ButtonWidget.ractangle(
+                    height: 49,
+                    text: addText,
+                    type: ButtonType.primary,
+                    onPressed: onTapAdd,
+                  ),
                 ),
             ],
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: SizedBox(
-              width: getMaxWidthTable(),
-              child: Column(
-                children: [
-                  headColumn(
-                    columns: columns,
-                    maxHeight: columnHeight,
-                    color: columnBackgroundColor,
-                  ),
-                  ...List.generate(data.length, (index) {
-                    RowItem row = data[index];
-                    return TableRowHoverWidget(
+          Scrollbar(
+            interactive: true,
+            thumbVisibility: true,
+            controller: horizontalScrollController,
+            scrollbarOrientation: ScrollbarOrientation.bottom,
+            child: SingleChildScrollView(
+              controller: horizontalScrollController,
+              scrollDirection: Axis.horizontal,
+              // padding: AppTheme.geometry.mediumB,
+              child: SizedBox(
+                width: getMaxWidthTable(),
+                child: Column(
+                  children: [
+                    _headColumn(
                       columns: columns,
-                      data: row,
-                      hoverColor: Colors.grey[100]!,
-                      isFirstIndex: index == 0,
-                      isLastIndex: (index == (data.length - 1)),
-                    );
-                  }),
-                ],
+                      maxHeight: columnHeight,
+                      color: columnBackgroundColor,
+                    ),
+                    SizedBox(
+                      height: AppTheme.double.screenH(context) - (paginationProps != null ? 285 : 300),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Scrollbar(
+                              interactive: true,
+                              thumbVisibility: true,
+                              controller: verticalScrollController,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                controller: verticalScrollController,
+                                child: Column(
+                                  children: List.generate(data.length, (index) {
+                                    RowItem row = data[index];
+                                    return SizedBox(
+                                      height: rowHeight,
+                                      child: TableRowHoverWidget(
+                                        data: row,
+                                        columns: columns,
+                                        maxLines: rowMaxLines,
+                                        overflow: rowTextOverflow,
+                                        hoverColor: Colors.grey[100]!,
+                                        isFirstIndex: index == 0,
+                                        isLastIndex: (index == (data.length - 1)),
+                                      ),
+                                    );
+                                  }),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Builder(builder: (context) {
+                            if (paginationProps != null) {
+                              int threshold;
+                              if (paginationProps.threshold != null) {
+                                threshold = paginationProps.threshold!;
+                              } else {
+                                if (isLargeScreen(context)) {
+                                  threshold = 12;
+                                } else if (isMediumScreen(context)) {
+                                  threshold = 8;
+                                } else {
+                                  threshold = 5;
+                                }
+                              }
+                              return SizedBox(
+                                width: double.infinity,
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: PaginationCustomWidget(
+                                    buttonElevation: 2,
+                                    colorSelectedButton: AppTheme.colors.primary,
+                                    threshold: threshold,
+                                    pageInit: paginationProps.currentPage,
+                                    pageTotal: paginationProps.totalPage,
+                                    onPageChanged: paginationProps.onPageChanged,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return const SizedBox();
+                            }
+                          }),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          AppTheme.spacing.smallY,
-          Builder(builder: (context) {
-            if (paginationProps != null) {
-              int threshold;
-              if (paginationProps.threshold != null) {
-                threshold = paginationProps.threshold!;
-              } else {
-                if (isLargeScreen(context)) {
-                  threshold = 12;
-                } else if (isMediumScreen(context)) {
-                  threshold = 8;
-                } else {
-                  threshold = 5;
-                }
-              }
-              return SizedBox(
-                width: double.infinity,
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: PaginationWidget(
-                    buttonElevation: 2,
-                    colorSelectedButton: AppTheme.colors.primary,
-                    threshold: threshold,
-                    pageInit: paginationProps.currentPage,
-                    pageTotal: paginationProps.totalPage,
-                    onPageChanged: paginationProps.onPageChanged,
-                  ),
-                ),
-              );
-            } else {
-              return const SizedBox();
-            }
-          }),
         ],
       ),
     );
@@ -201,13 +253,15 @@ class TableWidget {
     void Function()? onTapAdd,
     void Function()? onTap,
     Color? columnBackgroundColor,
-    double maxLargeScreenWidth = 1537,
+    double maxLargeScreenWidth = 1600,
     double maxMediumScreenWidth = 1000,
     double maxSmallScreenWidth = 800,
     double maxHeight = double.infinity,
     double columnHeight = 100.0,
     SearchProps? searchProps,
   }) {
+    ScrollController scrollController = ScrollController();
+
     double getMaxWidthTable() {
       if (isSmallScreen(context)) {
         return maxSmallScreenWidth;
@@ -270,32 +324,39 @@ class TableWidget {
               if (addText != null)
                 Container(
                   margin: AppTheme.geometry.mediumB,
-                  child: ButtonWidget.build(text: addText, type: ButtonType.primary, onPressed: onTapAdd),
+                  child: ButtonWidget.ractangle(text: addText, type: ButtonType.primary, onPressed: onTapAdd),
                 ),
             ],
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: SizedBox(
-              width: getMaxWidthTable(),
-              child: Column(
-                children: [
-                  headColumn(
-                    columns: columns,
-                    color: columnBackgroundColor,
-                    maxHeight: columnHeight,
-                  ),
-                  ...List.generate(data.length, (index) {
-                    RowItem row = data[index];
-                    return TableRowHoverWidget(
-                      data: row,
+          Scrollbar(
+            interactive: true,
+            thumbVisibility: true,
+            controller: scrollController,
+            scrollbarOrientation: ScrollbarOrientation.bottom,
+            child: SingleChildScrollView(
+              controller: scrollController,
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                width: getMaxWidthTable(),
+                child: Column(
+                  children: [
+                    _headColumn(
                       columns: columns,
-                      hoverColor: Colors.grey[100]!,
-                      isFirstIndex: index == 0,
-                      isLastIndex: (index == (data.length - 1)),
-                    );
-                  }),
-                ],
+                      color: columnBackgroundColor,
+                      maxHeight: columnHeight,
+                    ),
+                    ...List.generate(data.length, (index) {
+                      RowItem row = data[index];
+                      return TableRowHoverWidget(
+                        data: row,
+                        columns: columns,
+                        hoverColor: Colors.grey[100]!,
+                        isFirstIndex: index == 0,
+                        isLastIndex: (index == (data.length - 1)),
+                      );
+                    }),
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/enums/type_enums.dart';
+import '../../core/constants/enums/type_enums.dart';
 import '../../core/themes/app_theme.dart';
 import '../../core/widgets/button_widget.dart';
 import '../../core/widgets/card_widget.dart';
@@ -30,7 +30,7 @@ class WidgetDialogScreen extends StatelessWidget {
             CardWidget.basic(
               title: "Dialog Sample",
               children: [
-                ButtonWidget.build(
+                ButtonWidget.ractangle(
                   text: "Show Dialog",
                   type: ButtonType.primary,
                   onPressed: () {
@@ -51,7 +51,7 @@ class WidgetDialogScreen extends StatelessWidget {
                   },
                 ),
                 AppTheme.spacing.mediumY,
-                ButtonWidget.build(
+                ButtonWidget.ractangle(
                   text: "Show Dialog with Image",
                   type: ButtonType.primary,
                   onPressed: () {

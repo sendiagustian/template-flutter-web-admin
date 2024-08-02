@@ -2,7 +2,7 @@ library number_pagination;
 
 import 'package:flutter/material.dart';
 
-class PaginationWidget extends StatefulWidget {
+class PaginationCustomWidget extends StatefulWidget {
   ///Trigger when page changed
   final Function(int) onPageChanged;
 
@@ -54,8 +54,8 @@ class PaginationWidget extends StatefulWidget {
   // Spacing between button groups, default is 10.0
   final double groupSpacing;
 
-  /// Creates a PaginationWidget widget.
-  const PaginationWidget({
+  /// Creates a PaginationCustomWidget widget.
+  const PaginationCustomWidget({
     super.key,
     required this.onPageChanged,
     required this.pageTotal,
@@ -78,10 +78,10 @@ class PaginationWidget extends StatefulWidget {
   });
 
   @override
-  State<PaginationWidget> createState() => _PaginationWidgetState();
+  State<PaginationCustomWidget> createState() => _PaginationCustomWidgetState();
 }
 
-class _PaginationWidgetState extends State<PaginationWidget> {
+class _PaginationCustomWidgetState extends State<PaginationCustomWidget> {
   late int currentPage;
 
   @override

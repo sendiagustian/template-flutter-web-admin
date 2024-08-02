@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../enums/type_enums.dart';
+import '../constants/enums/type_enums.dart';
 import '../themes/app_theme.dart';
 import '../utils/app_util.dart';
-import 'loading_indicator_widget.dart';
+import 'customs/loading_indicator_custom_widget.dart';
 
 class DialogWidget {
   static Future<dynamic> info({
@@ -14,6 +14,7 @@ class DialogWidget {
     required List<Widget> buttons,
     bool isDismissible = true,
   }) async {
+    final ScrollController scrollController = ScrollController();
     return await showGeneralDialog(
       context: context,
       barrierDismissible: isDismissible,
@@ -40,6 +41,7 @@ class DialogWidget {
                       borderRadius: AppTheme.radius.exSmall,
                     ),
                     content: SingleChildScrollView(
+                      controller: scrollController,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -58,7 +60,7 @@ class DialogWidget {
                             child: Text(
                               desc,
                               textAlign: TextAlign.center,
-                              style: AppTheme.typography.bodyMedium,
+                              style: AppTheme.typography.bodySmall,
                             ),
                           ),
                         ],
@@ -115,20 +117,75 @@ class DialogWidget {
                     ),
                     actions: [
                       button(
-                        text: "Cancel",
+                        text: 'Cancel',
                         type: ButtonType.secondary,
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       button(
-                        text: "Submit",
+                        text: 'Submit',
                         type: ButtonType.primary,
                         onPressed: onSubmit,
                       ),
                     ],
                   );
                 },
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static Future<dynamic> widget({
+    required BuildContext context,
+    Widget? image,
+    Widget? title,
+    required Widget content,
+    List<Widget>? buttons,
+    TextAlign? contentTextAlign,
+    bool isDismissible = true,
+  }) async {
+    return await showGeneralDialog(
+      context: context,
+      barrierDismissible: isDismissible,
+      transitionDuration: const Duration(milliseconds: 150),
+      barrierLabel: '',
+      barrierColor: Colors.black.withOpacity(0.6),
+      pageBuilder: (context, animation1, animation2) {
+        return Container();
+      },
+      transitionBuilder: (BuildContext context, a1, a2, widget) {
+        return PopScope(
+          onPopInvoked: (p) async => isDismissible,
+          child: SafeArea(
+            child: Transform.scale(
+              scale: a1.value,
+              child: Opacity(
+                opacity: a1.value,
+                child: StatefulBuilder(
+                  builder: (context, setState) {
+                    return AlertDialog(
+                      title: title,
+                      backgroundColor: Colors.white.withOpacity(0.9),
+                      shape: RoundedRectangleBorder(borderRadius: AppTheme.radius.exSmall),
+                      content: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            image ?? Container(),
+                            content,
+                          ],
+                        ),
+                      ),
+                      actions: buttons,
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -157,7 +214,7 @@ class DialogWidget {
           scale: a1.value,
           child: Opacity(
             opacity: a1.value,
-            child: LoadingIndicatorWidget(
+            child: LoadingIndicatorCustomWidget(
               loadingText: loadingText,
               loadingSize: loadingSize,
             ),
@@ -183,14 +240,14 @@ class DialogWidget {
       overlayColor = AppTheme.colors.bgDark.withOpacity(0.15);
       textColor = Colors.white;
       decoration = BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppTheme.radius.small,
       );
     } else if (type == ButtonType.secondary) {
       textColor = AppTheme.colors.primary;
       backgroundColor = Colors.white;
       overlayColor = Colors.black12;
       decoration = BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppTheme.radius.small,
         border: Border.all(
           width: 1.5,
           color: AppTheme.colors.primary,
@@ -201,15 +258,15 @@ class DialogWidget {
       overlayColor = Colors.grey[700]!;
       textColor = Colors.white;
       decoration = BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppTheme.radius.small,
       );
     }
 
     return Material(
       color: backgroundColor,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: AppTheme.radius.small,
       child: InkWell(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppTheme.radius.small,
         overlayColor: WidgetStateProperty.resolveWith<Color?>(
           (Set<WidgetState> states) {
             if (states.contains(WidgetState.pressed)) {
